@@ -1,0 +1,96 @@
+h1 {
+    font-weight: 350;
+  }
+  
+h2 {
+  font-weight: 200;
+  }
+
+  .text-black {
+    color: black;
+  }
+  
+  .btn-white {
+    color: black;
+    border: 1px solid black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    background-color: rgba(0,0,0,0.0);
+  
+    &:hover {
+      color: black;
+    }
+  }
+  
+  .top-hero-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-image: image-url('bg-top.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+  }
+  
+  .top-hero-container {
+    padding-top: 220px;
+    h1 {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+  
+    h2 {
+      font-size: 25px;
+      margin-bottom: 60px;
+    }
+  }
+
+  .form-control {
+    height: 45px;
+  }
+
+  .alert {
+    margin-bottom: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+  }
+  
+  .navbar-transparent {
+    margin-bottom: 0px;
+    background-color: rgba(0,0,0,0.5);
+    a {
+      color: #fff !important;
+    }
+    
+    .navbar-brand {
+      padding: 0px;
+      height: 70px;
+    }
+    
+    img {
+      height: 40px;
+    }
+    
+    .logged-in-name {
+      font-size: 25px;
+      color: white;
+      padding: 20px;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
