@@ -40,9 +40,15 @@ gem 'bootstrap-sass' #BootStrap CSSパッケージ
 
 gem 'dotenv-rails' #環境変数読み込み
 
+gem "carrierwave" #画像投稿
+
 gem 'jquery-rails'
 gem "jquery-ui-rails"
 gem 'bcrypt'
+
+gem 'devise'
+
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

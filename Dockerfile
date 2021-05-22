@@ -13,10 +13,19 @@ RUN mkdir /app_name
 ENV APP_ROOT /app_name 
 WORKDIR $APP_ROOT
 
-# ホスト側（ローカル）のGemfileを追加する（ローカルのGemfileは【３】で作成）
-ADD ./Gemfile $APP_ROOT/Gemfile
-ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
-# Gemfileのbundle install
+
+# # ホスト側（ローカル）のGemfileを追加する（ローカルのGemfileは【３】で作成）
+# ADD ./Gemfile $APP_ROOT/Gemfile
+# ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
+
+# # Gemfileのbundle install
+# RUN bundle install
+# ADD . $APP_ROOT
+
+# ホストのGemfile達をコンテナ内にコピー
+COPY Gemfile $APP_ROOT/Gemfile
+COPY Gemfile.lock $APP_ROOT/Gemfile.lock
+RUN gem install bundler
 RUN bundle install
-ADD . $APP_ROOT
+COPY . $APP_ROOT

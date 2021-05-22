@@ -17,4 +17,6 @@ class User < ApplicationRecord
     validates :password_confirmation, length: {in: 8..32}, format: {with: valid_password_regex} 
 
     has_secure_password
+
+    has_many :topics
 end
