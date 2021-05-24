@@ -1,33 +1,131 @@
 <div class="topic-new-wrapper" >
-<div class="container">
-    <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center">Add Picture</h1>
-        <%= form_for @topic do |f| %>
-        <div class="form-group">
-            <%= f.label :title,"タイトル" %>
-            <%= f.text_area :title, class: 'form-control' %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 class="text-center">Add Picture</h1>
+                <%= form_for @topic do |f| %>
+                <div class="form-group">
+                    <%= f.label :title,"タイトル" %>
+                    <%= f.text_area :title, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :station,"最寄駅" %>
+                    <%= f.text_area :station, class: 'form-control' %>
+                    <input type="button" value="Encode" onclick="codeAddress()">
+                    <!-- デバッグ用緯度経度　確認-->
+                    <div id="display">何かが表示される、、、、！</div>
+                    <div id="target_latitude">いど！</div>
+                    <div id="target_longitude">けいど！  APIキー＝<%= @env %></div>
+                    <!-- ここまで -->
+                    <!--<input type="hidden" name="topic_latitude" value="35.72871894239424">-->
+                    <!--<input type="hidden" name="topic_longitude " value="139.71208027196656">-->
+                    <%= f.hidden_field :latitude , value: 35.72871894239424 %>
+                    <%= f.hidden_field :longitude ,value: 139.71208027196656 %>
+                </div>
+
+        <div id='map'></div>
+
+                <div class="form-group">
+                    <%= f.label :picture_1,"写真" %>
+                    <%= f.file_field :picture_1 %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :description,"コメント" %>
+                    <%= f.text_area :description, class: 'form-control' %>
+                </div>
+
+                <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+
+                <% end %>
+            </div>
         </div>
-
-        <div class="form-group">
-            <%= f.label :station,"最寄駅" %>
-            <%= f.text_area :station, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-            <%= f.label :picture_1,"写真" %>
-            <%= f.file_field :picture_1 %>
-        </div>
-
-        <div class="form-group">
-            <%= f.label :description,"コメント" %>
-            <%= f.text_area :description, class: 'form-control' %>
-        </div>
-
-        <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
-
-        <% end %>
     </div>
-    </div>
-  </div>
 </div>
+
+
+
+
+<script>
+let map
+let geocoder
+
+const display = document.getElementById('display')
+var marker;
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.0079, lng:135.7704},
+    zoom: 16,
+  });
+
+  // ドラッグ可能なマーカー
+  marker = new google.maps.Marker({
+    position:  {lat: 35.0079, lng:135.7704},
+    map: map,
+    draggable: true
+  });
+ //マーカーのドロップ（ドラッグ終了）時のイベント
+ google.maps.event.addListener(marker, 'dragend', function(e) {
+  //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+  document.getElementById('target_latitude').textContent = e.latLng.lat(),
+  document.getElementById('target_longitude').textContent = e.latLng.lng()
+ });
+
+
+             // infoWindowは吹き出し
+            infoWindow = new google.maps.InfoWindow({
+            // contentで中身を指定
+            // 今回は文字にリンクを貼り付けた形で表示
+            content: `<a href='/pages/index'>リンクです！</a>`
+            });
+            // markerがクリックされた時、
+            marker.addListener("click", function(){
+                // infoWindowを表示
+                infoWindow.open(map, marker);
+            });
+}
+
+function codeAddress(){
+  let inputAddress = document.getElementById('topic_station').value;
+
+  marker.setMap(null);
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          draggable: true
+      });
+      display.textContent = "検索結果：" + results[ 0 ].geometry.location
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+ //マーカーのドロップ（ドラッグ終了）時のイベント
+ google.maps.event.addListener(marker, 'dragend', function(e) {
+  //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+  document.getElementById('target_latitude').textContent = e.latLng.lat(),
+  document.getElementById('target_longitude').textContent = e.latLng.lng()
+ });
+  });
+
+             // infoWindowは吹き出し
+            infoWindow = new google.maps.InfoWindow({
+            // contentで中身を指定
+            // 今回は文字にリンクを貼り付けた形で表示
+            content: `<a href='/pages/index'>リンクです！</a>`
+            });
+            // markerがクリックされた時、
+            marker.addListener("click", function(){
+                // infoWindowを表示
+                infoWindow.open(map, marker);
+            });
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
