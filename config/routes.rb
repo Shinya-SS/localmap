@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :topics
+  resources :topics do
+    collection do
+      get :search
+    end
+  end
   
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

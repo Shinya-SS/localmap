@@ -20,8 +20,8 @@
                     <!-- ここまで -->
                     <!--<input type="hidden" name="topic_latitude" value="35.72871894239424">-->
                     <!--<input type="hidden" name="topic_longitude " value="139.71208027196656">-->
-                    <%= f.hidden_field :latitude , value: 35.72871894239424 %>
-                    <%= f.hidden_field :longitude ,value: 139.71208027196656 %>
+                    <%= f.hidden_field :latitude %>
+                    <%= f.hidden_field :longitude %>
                 </div>
 
         <div id='map'></div>
@@ -58,13 +58,13 @@ function initMap(){
   geocoder = new google.maps.Geocoder()
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.0079, lng:135.7704},
+    center: {lat: 35.729503, lng:139.7109},
     zoom: 16,
   });
 
   // ドラッグ可能なマーカー
   marker = new google.maps.Marker({
-    position:  {lat: 35.0079, lng:135.7704},
+    position:  {lat: 35.0079, lng:139.7109},
     map: map,
     draggable: true
   });
@@ -108,8 +108,10 @@ function codeAddress(){
  //マーカーのドロップ（ドラッグ終了）時のイベント
  google.maps.event.addListener(marker, 'dragend', function(e) {
   //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
-  document.getElementById('target_latitude').textContent = e.latLng.lat(),
-  document.getElementById('target_longitude').textContent = e.latLng.lng()
+  // document.getElementById('target_latitude').textContent = e.latLng.lat(),
+  // document.getElementById('target_longitude').textContent = e.latLng.lng()
+  document.getElementById('topic_latitude').value = e.latLng.lat(),
+  document.getElementById('topic_longitude').value = e.latLng.lng()
  });
   });
 

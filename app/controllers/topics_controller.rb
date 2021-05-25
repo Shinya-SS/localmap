@@ -1,7 +1,8 @@
 class TopicsController < ApplicationController
+
   def new
     @topic = Topic.new
-    # @env = ENV['GOOGLE_MAP_API']
+    @env = get_apikey
   end
 
   def create
@@ -15,8 +16,20 @@ class TopicsController < ApplicationController
     end
   end
 
+  def search
+    @env = get_apikey
+    @topics = Topic.search(params[:search])
+    # gon.topics = Topic.search(params[:search])
+    gon.topics = @topics
+  end
+
   private
   def topic_params
     params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3, :picture_4, :picture_5)
+  end
+
+  def get_apikey
+    # ENV['GOOGLE_MAP_API']
+    # ''
   end
 end

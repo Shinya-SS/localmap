@@ -1,0 +1,124 @@
+<br>
+<br>
+<br>
+<br><h1>検索</h1>
+
+<%= form_tag(search_topics_path,:method => 'get') do %>
+  <%= text_field_tag :search %>
+  <%= submit_tag 'Search', :name => nil %>
+<% end %>
+
+<% @topics.each do |topic| %>
+    <div>
+        <%= topic.created_at %>
+        <%= topic.title %>
+    <!-- 確認用表示 -->
+        <%= topic.latitude %>
+        <%= topic.longitude %>
+    </div>
+    <!-- ここまで -->
+    <%= hidden_field_tag :topic_latitude, topic.latitude %>
+    <%= hidden_field_tag :topic_longitude, topic.longitude %>
+<% end %>
+
+<input type="button" value="クリック" onclick="map_click()">
+<div id='map'></div>
+
+<script>
+let map
+let geocoder
+let marker = [] //マーカーは上位５件を表示
+let infoWindow = [] //吹き出しも上位５件表示
+const topics = gon.topics //controllerから検索結果のtopicsを取得
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.728860, lng:139.711814},
+    zoom: 16,
+  });
+
+  // ドラッグ可能なマーカー
+  marker = new google.maps.Marker({
+    position: {lat: 35.728860, lng:139.711814},
+    map: map,
+    draggable: true
+  });
+
+             // infoWindowは吹き出し
+            infoWindow = new google.maps.InfoWindow({
+            // contentで中身を指定
+            // 今回は文字にリンクを貼り付けた形で表示
+            content: `<a href='/pages/index'>リンクです！</a>`
+            });
+            // markerがクリックされた時、
+            marker.addListener("click", function(){
+                // infoWindowを表示
+                infoWindow.open(map, marker);
+            });
+}
+
+function map_click(){
+    // geocoderを初期化
+    geocoder = new google.maps.Geocoder()
+    
+    // mapの初期位置設定
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.729503, lng:139.7109},
+    zoom: 16,
+  });
+
+    // forは繰り返し処理
+    // 変数iを0と定義し、
+    // その後gonで定義したtopics分繰り返し加える処理を行う(上限５回)
+    for (let i = 0; i < topics.length; i++) {
+        // geocoderで addressの経緯緯度取得
+        // users[i]は変数iのユーザーを取得している
+          alert(topics[0].station);
+        geocoder.geocode( { 'address': topics[i].station }, function(results, status) {
+            // statusがOKであれば
+        if (status == 'OK') {
+    　　　　// map.setCenterで地図が移動
+            map.setCenter(results[0].geometry.location);
+            marker[i] = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+            // 変数iを変数idに代入
+            let id = topics[i]['id']
+            // infoWindowは吹き出し
+            infoWindow[i] = new google.maps.InfoWindow({
+            // contentで中身を指定
+            // 今回は文字にリンクを貼り付けた形で表示
+            content: `<a href='/mypages/index'>${topics[i].title}</a>`
+            });
+            // markerがクリックされた時、
+            marker[i].addListener("click", function(){
+                // infoWindowを表示
+                infoWindow[i].open(map, marker[i]);
+            });
+        } else {
+            // alert('Geocode was not successful for the following reason: ' + status);
+        }
+        });
+    }
+// var latitude = document.getElementById('topic_latitude').value
+// var longitude = document.getElementById('topic_longitude').value
+// //    map.panTo(new google.maps.LatLng(35.680865,139.767036));
+// map.panTo(new google.maps.LatLng(latitude,longitude));
+
+}
+
+
+
+//検索入力画面の初期表示(注意事項)
+$(function(){
+    $("#search").val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
+        $(this).val("").css("color","#000");
+    });
+});
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
