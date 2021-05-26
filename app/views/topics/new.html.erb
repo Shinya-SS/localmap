@@ -128,6 +128,23 @@ function codeAddress(){
             });
 }
 
+//入力チェック
+$(function(){
+  $("form").submit(function(){
+    if ($("textarea[name='topic[station]']").val() == ""){
+      if($("span").css("font-weight") != "bold"){
+        $("textarea[name='topic[station]']").css("border","1px solid red")
+          .after("<span>　入力してください。</span>");
+        $("span").css({
+          "color":"red",
+          "font-weight":"bold"
+        });
+      }
+      return false;
+    }
+  });
+});
+
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>

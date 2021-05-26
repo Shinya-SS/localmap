@@ -23,6 +23,10 @@ class TopicsController < ApplicationController
     gon.topics = @topics
   end
 
+  def show
+    @topic = Topic.find(params[:id])
+  end
+
   private
   def topic_params
     params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3, :picture_4, :picture_5)

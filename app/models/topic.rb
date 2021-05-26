@@ -6,6 +6,7 @@ class Topic < ApplicationRecord
     validates :longitude, presence: true
 
     belongs_to :user
+    has_many :favorites
     
     mount_uploader :picture_1, ImageUploader
 
@@ -13,5 +14,10 @@ class Topic < ApplicationRecord
     def self.search(search)
         return Topic.all unless search
         Topic.where(['station LIKE ?', "%#{search}%"])
-      end
+    end
+
+    #いいねされているかチェックメソッド
+    def already_favorite?(user)
+      self.favorites.where(user_id: user.id).exists?
+    end
 end

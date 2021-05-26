@@ -11,13 +11,18 @@ Rails.application.routes.draw do
   end
   
   resources :topics do
+    post 'add' => 'favorites#create'
+    delete '/add' => 'favorites#delete'
     collection do
       get :search
     end
   end
-  
+
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
+  get 'favorites/index'
+  post '/favorites', to: 'favorites#create' 
+  post '/favorites/delete', to: 'favorites#delete'
 end

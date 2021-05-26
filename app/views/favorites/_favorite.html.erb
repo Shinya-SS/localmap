@@ -1,0 +1,10 @@
+            <% if topic.already_favorite?(current_user) %>
+                <%= link_to(topic_add_path(topic), method: :delete, remote: true, id: :"favorite-button-#{topic.id}") do %>
+                    <div class="heart on HeartAnimation"></div>
+                <% end %>
+            <% else %>
+                <%= link_to(topic_add_path(topic), method: :post, remote: true, id: :"favorite-button-#{topic.id}") do %>
+                    <div class="heart"></div>
+                <% end %>
+            <% end %>
+<div class="favorite-count"><%= Favorite.where(topic_id: topic.id).count %></div>

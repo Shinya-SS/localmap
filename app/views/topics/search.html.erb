@@ -17,6 +17,12 @@
         <%= topic.longitude %>
     </div>
     <!-- ここまで -->
+    <div>
+    <%= link_to 'Show', topic %>
+    <div id="favorite-button-<%= topic.id %>">
+        <%= render 'favorites/favorite', topic: topic %>
+    </div>
+    <div>
     <%= hidden_field_tag :topic_latitude, topic.latitude %>
     <%= hidden_field_tag :topic_longitude, topic.longitude %>
 <% end %>
@@ -116,6 +122,12 @@ function map_click(){
 $(function(){
     $("#search").val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
         $(this).val("").css("color","#000");
+    }).blur(function(){
+        if($(this).val()==""){
+            $(this).val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
+                $(this).val("").css("color","#000");
+            });
+        }
     });
 });
 
