@@ -19,12 +19,14 @@ class TopicsController < ApplicationController
   def search
     @env = get_apikey
     @topics = Topic.search(params[:search])
-    # gon.topics = Topic.search(params[:search])
     gon.topics = @topics
   end
 
   def show
+    @env = get_apikey
     @topic = Topic.find(params[:id])
+    gon.topic = @topic
+    gon.ido = @topic.latitude
   end
 
   private

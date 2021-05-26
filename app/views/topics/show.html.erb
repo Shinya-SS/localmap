@@ -12,23 +12,63 @@
         <%= @topic.longitude %>
         
     </div>
+<div id="map_show"></div>
 
+<%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
+    <%= image_tag @topic.picture_1.url, class: "show_image" %>
+<% end %>
+
+
+<div><p>投稿者コメント</p>
+<%= @topic.description %>
+</div>
 <div class="heart"></div>
 
+<input type="button" value="PDF出力">
+
+<div><p>コメント</p>
+<textarea></textarea>
+<input type="button" value="コメント投稿">
+<div>投稿コメント一覧<div>
+<textarea></textarea>
+</div>
+
 <script>
+let map
+let geocoder
+const topic = gon.topic //controllerから検索結果のtopicを取得
+
+const latitude = topic.latitude
+const longitude = topic.longitude
+
+function initMap(){
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map_show'), {
+        center: {lat: latitude, lng:longitude},
+        zoom: 16,
+    });
+
+    // ドラッグ可能なマーカー
+    marker = new google.maps.Marker({
+        position: {lat: latitude, lng:longitude},
+        map: map,
+        draggable: true
+    });
+}
+
 $('.heart').on('click', function() {
     let $btn = $(this);
     // Likeアイコンがonクラス持っていたら
     if ($btn.hasClass('on')) {
-      
-      $btn.removeClass('on');
-      $btn.removeClass("HeartAnimation");
+        $btn.removeClass('on');
+        $btn.removeClass("HeartAnimation");
     //   $btn.css("background-position","left");
-
     } else {
-      $btn.addClass('on');
-      $btn.addClass("HeartAnimation");
-
+        $btn.addClass('on');
+        $btn.addClass("HeartAnimation");
     }
 });
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
