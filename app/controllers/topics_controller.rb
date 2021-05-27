@@ -25,6 +25,7 @@ class TopicsController < ApplicationController
   def show
     @env = get_apikey
     @topic = Topic.find(params[:id])
+    @comment = Comment.new
     gon.topic = @topic
     gon.ido = @topic.latitude
   end

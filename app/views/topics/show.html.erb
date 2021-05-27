@@ -14,10 +14,11 @@
     </div>
 <div id="map_show"></div>
 
-<%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
-    <%= image_tag @topic.picture_1.url, class: "show_image" %>
+<% unless @topic.picture_1.url.nil? %>
+    <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
+        <%= image_tag @topic.picture_1.url, class: "show_image" %>
+    <% end %>
 <% end %>
-
 
 <div><p>投稿者コメント</p>
 <%= @topic.description %>
@@ -26,12 +27,26 @@
 
 <input type="button" value="PDF出力">
 
-<div><p>コメント</p>
-<textarea></textarea>
-<input type="button" value="コメント投稿">
+
+<%= form_with model: @comment, url: comments_path do |f|  %>
+    <div class="form-group">
+        <%= f.label :comment, "コメント", class: 'text-black' %>
+        <%= f.text_field :comment, class: 'form-control' %>
+        <%= f.hidden_field :topic_id, value: @topic.id %>
+    </div>
+    <%= f.submit "投稿", class: 'btn-comment' %>
+<% end %>
+
 <div>投稿コメント一覧<div>
-<textarea></textarea>
+    <div class="comment-text">
+        <% @topic.comments.each do |comment| %>
+            <p class="topic-text">
+            <%= comment.comment %>
+            </p>
+        <% end %>
+    </div>
 </div>
+
 
 <script>
 let map
