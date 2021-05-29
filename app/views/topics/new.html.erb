@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h1 class="text-center">Add Picture</h1>
+                <h1 class="text-center">スポットの投稿</h1>
                 <%= form_for @topic do |f| %>
                 <div class="form-group">
                     <%= f.label :title,"タイトル" %>
@@ -27,8 +27,9 @@
         <div id='map'></div>
 
                 <div class="form-group">
-                    <%= f.label :picture_1,"写真" %>
-                    <%= f.file_field :picture_1 %>
+                  <%= f.label :picture_1,"写真" %>
+                  <%= f.file_field :picture_1 %>
+                <div class="picture_attention">※通行人の映り込みや、個人が特定されるもの等のご投稿はご遠慮ください。</div>
                 </div>
 
                 <div class="form-group">
@@ -36,7 +37,7 @@
                     <%= f.text_area :description, class: 'form-control' %>
                 </div>
 
-                <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+                <%= f.submit '投稿', class: 'btn btn-black btn-block btn-last' %>
 
                 <% end %>
             </div>

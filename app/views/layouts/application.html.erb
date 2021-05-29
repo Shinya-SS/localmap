@@ -30,30 +30,35 @@
         <% end %>
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
-            <li>
-              <%= link_to "#" do %>
-                <%= image_tag "icons/heart.png" %>
+            <li class="nav-item">
+              <%= link_to mypages_index_path do %>
+                <div class="nav-center">マイページ</div>
               <% end %>
             </li>
-            <li>
+            <li class="nav-item">
+              <%= link_to search_topics_path do %>
+                <div class="nav-center">検索</div>
+              <% end %>
+            </li>
+            <li class="nav-item">
               <%= link_to new_topic_path do %>
-                <%= image_tag "icons/camera.png" %>
+                <div class="nav-center">投稿</div>
               <% end %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to logout_path, method: :delete do %>
-                <%= image_tag "icons/logout.png" %>
+                <div class="nav-center">ログアウト</div>
               <% end %>
             </li>
           <% else %>
-            <li>
+            <li class="nav-item">
               <%= link_to new_user_path do %>
-                <%= image_tag "icons/register.png" %>
+                <div class="nav-center">新規登録</div>
               <% end %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to login_path do %>
-                <%= image_tag "icons/login.png" %>
+                <div class="nav-center">ログイン</div>
               <% end %>
             </li>
           <% end %>
@@ -67,6 +72,7 @@
       $(function(){
         $(".alert").fadeOut(2000);
       });
+
     </script>
   </body>
 </html>

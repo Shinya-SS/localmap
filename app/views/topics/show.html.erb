@@ -12,7 +12,7 @@
         <%= @topic.longitude %>
         
     </div>
-<div id="map_show"></div>
+<!--<div id="map_show"></div>-->
 
 <% unless @topic.picture_1.url.nil? %>
     <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
@@ -27,26 +27,25 @@
 
 <input type="button" value="PDF出力">
 
-
-<%= form_with model: @comment, url: comments_path do |f|  %>
-    <div class="form-group">
-        <%= f.label :comment, "コメント", class: 'text-black' %>
-        <%= f.text_field :comment, class: 'form-control' %>
-        <%= f.hidden_field :topic_id, value: @topic.id %>
-    </div>
-    <%= f.submit "投稿", class: 'btn-comment' %>
-<% end %>
-
-<div>投稿コメント一覧<div>
-    <div class="comment-text">
-        <% @topic.comments.each do |comment| %>
-            <p class="topic-text">
-            <%= comment.comment %>
-            </p>
-        <% end %>
-    </div>
+<div class="form-group">
+    <ul>
+        <li class="comment-create">
+            <h3 class="text-left title">コメント</h3>
+        </li>
+        <li>
+            <div id="comments_area">
+                <%= render 'comments/index', comments: @comments %>
+            </div>
+        </li>
+    </ul>
+    <hr>
+    <% if logged_in? %>
+        <div class="comment-create">
+            <h3 class="text-left">コメントを投稿する</h3>
+            <%= render 'comments/form', comment: @comment, topic: @topic %>
+        </div>
+    <% end %>
 </div>
-
 
 <script>
 let map

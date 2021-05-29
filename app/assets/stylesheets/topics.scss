@@ -10,7 +10,12 @@
       color: #565656;
     }
   }
-  
+
+  //最後の要素のため少し幅を持たせる。
+  .btn-last {
+    margin-bottom: 50px;
+  }
+
   .topic-new-wrapper {
     padding-top: 120px;
   }
@@ -68,4 +73,10 @@
     height: 160px;
     width: 160px;
     border-radius: 100px;
+  }
+
+  //写真投稿の注意事項
+  .picture_attention {
+    font-size: 11px;
+    color: #7f7f7f;
   }

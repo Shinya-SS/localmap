@@ -1,3 +1,8 @@
+//ベースカラー
+body {
+  background-color: rgb(237, 237, 232);
+}
+
 h1 {
     font-weight: 350;
   }
@@ -78,6 +83,21 @@ h2 {
       font-size: 25px;
       color: white;
       padding: 20px;
+    }
+
+    //ナビゲーションバーの各項目
+    .nav-center {
+      font-size: 20px;
+      text-align: center;
+      padding:10px 0;
+    }
+
+    //ナビゲーションバーの各項目のマウスオーバー
+    .nav-item:hover {
+      background-color: #c9c9c9;
+      .nav-center{
+        color: black;
+      }
     }
   }
 

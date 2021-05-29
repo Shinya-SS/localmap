@@ -26,6 +26,9 @@ class TopicsController < ApplicationController
     @env = get_apikey
     @topic = Topic.find(params[:id])
     @comment = Comment.new
+    #コメントを作成日の降順で取得
+    @comments = @topic.comments.order(id: :desc)
+    
     gon.topic = @topic
     gon.ido = @topic.latitude
   end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
+    resources :comments, only: [:create,:destroy]
   end
 
   get    '/login',   to: 'sessions#new'
@@ -26,5 +27,5 @@ Rails.application.routes.draw do
   post '/favorites', to: 'favorites#create' 
   post '/favorites/delete', to: 'favorites#delete'
 
-  post '/comments', to: 'comments#create'
+  # post '/comments', to: 'comments#create'
 end
