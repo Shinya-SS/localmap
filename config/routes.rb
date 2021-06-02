@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     delete '/add' => 'favorites#delete'
     collection do
       get :search
+      get 'topics/auto_complete'
     end
     resources :comments, only: [:create,:destroy]
   end

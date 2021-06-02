@@ -5,11 +5,11 @@ class UsersController < ApplicationController
     stations = Station.all
     stations = stations.map(&:name)
 
-    #jsonファイル確認用
-    # respond_to do |format|
-    #   format.html
-    #   format.json { render json: stations.to_json }
-    # end
+    # jsonファイル確認用
+    respond_to do |format|
+      format.html
+      format.json { render json: stations.to_json }
+    end
   end
 
   def create

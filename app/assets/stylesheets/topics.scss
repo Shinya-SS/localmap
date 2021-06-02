@@ -11,6 +11,21 @@
     }
   }
 
+  //最寄駅のForm
+  .form-station {
+    display: grid;
+    grid-template-columns: 300px 60px 1fr;
+
+    #label-station {
+      grid-column: 1/4;
+    }
+
+    #btn-station {
+      height: 30px;
+      margin-top: auto;
+    }
+  }
+
   //最後の要素のため少し幅を持たせる。
   .btn-last {
     margin-bottom: 50px;
@@ -20,14 +35,18 @@
     padding-top: 120px;
   }
 
+  //googlemapのサイズ
   #map {
-    height: 600px;
-    width: 600px;
+    height: 450px;
+    width: 700px;
+    margin-bottom: 50px;
   }
 
-  #search {
-    width: 300px;
+  //写真投稿のファイル選択form
+  .form-all-picutre {
+    margin-bottom: 10px;
   }
+
 
   .heart {
     width: 100px;
@@ -79,4 +98,103 @@
   .picture_attention {
     font-size: 11px;
     color: #7f7f7f;
+  }
+
+
+
+
+  //画像投稿部分
+  .img_field {
+    width: 200px;
+    height: 200px;
+    padding: 5px 8px;
+    border: solid 1px #DEE2E6;
+    text-align: center;
+    position: relative;
+    padding: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #fff;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: 0.3s ease-out;
+  
+    &:hover {
+      background-color: #E8ECF1;
+      transition: 0.3s ease-out;
+      opacity: 0.9;
+    }
+  
+    i {
+      font-size: 45px;
+      color: #aaa;
+      line-height: 200px;
+      transition: 0.3s ease-out;
+    }
+  }
+
+  //投稿画像のプレビュー
+  .preview{
+    width: 200px;
+    height: 200px;
+  }
+
+  //投稿画像のプレビュー１
+  #img_1 {
+    width: 200px;
+    height: 200px;
+  }
+  #img_2 {
+    width: 200px;
+    height: 200px;
+  }
+    #img_3 {
+      width: 200px;
+      height: 200px;
+    }
+
+  // file_field
+  #form-picture1{
+    display: none;
+  }
+  #form-picture2{
+    display: none;
+  }
+  #form-picture3{
+    display: none;
+  }
+  // 次の画像投稿フォーム
+  .img_upload2 {
+    display: none;
+  }
+  .img_upload3 {
+    display: none;
+  }
+
+  //画像投稿フォーム
+  .pic_grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    
+    #del-img1 {
+      grid-column: 2/3;
+      width: 90px;
+      height: 25px;
+      margin-top: auto;
+    }
+    #del-img2 {
+      grid-column: 2/3;
+      width: 90px;
+      height: 25px;
+      margin-top: auto;
+    }
+    #del-img3 {
+      grid-column: 2/3;
+      width: 90px;
+      height: 25px;
+      margin-top: auto;
+    }
   }

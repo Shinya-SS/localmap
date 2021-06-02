@@ -16,5 +16,6 @@ module AppName
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
   end
 end

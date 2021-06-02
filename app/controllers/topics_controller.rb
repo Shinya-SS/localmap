@@ -3,6 +3,14 @@ class TopicsController < ApplicationController
   def new
     @topic = Topic.new
     @env = get_apikey
+
+    stations = Station.all
+    stations = stations.map(&:name)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: stations.to_json }
+    end
   end
 
   def create
@@ -33,6 +41,12 @@ class TopicsController < ApplicationController
     gon.ido = @topic.latitude
   end
 
+  def auto_complete
+    stations = Station.select(:name).distinct.where("name like '%" + params[:term] + "%'").order(:name)
+    stations = stations.map(&:name)
+    render json: stations.to_json
+  end
+
   private
   def topic_params
     params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3, :picture_4, :picture_5)
@@ -42,4 +56,5 @@ class TopicsController < ApplicationController
     # ENV['GOOGLE_MAP_API']
     # ''
   end
+
 end
