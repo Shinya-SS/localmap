@@ -1,4 +1,3 @@
-
 let map
 let geocoder
 
@@ -9,23 +8,22 @@ function initMap(){
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.729503, lng:139.7109},
+        center: {lat: 35.681236, lng: 139.767125},
         zoom: 16,
     });
 
 // ドラッグ可能なマーカー
     marker = new google.maps.Marker({
-        position:  {lat: 35.0079, lng:139.7109},
+        position:  {lat: 35.681236, lng: 139.767125},
         map: map,
         draggable: true
     });
 //マーカーのドロップ（ドラッグ終了）時のイベント
     google.maps.event.addListener(marker, 'dragend', function(e) {
 //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
-        document.getElementById('target_latitude').textContent = e.latLng.lat(),
-        document.getElementById('target_longitude').textContent = e.latLng.lng()
+        document.getElementById('topic_latitude').value  = e.latLng.lat(),
+        document.getElementById('topic_longitude').value = e.latLng.lng()
     });
-
 
 // infoWindowは吹き出し
     infoWindow = new google.maps.InfoWindow({
@@ -58,10 +56,11 @@ function codeAddress(){
                 position: results[0].geometry.location,
                 draggable: true
         });
-        display.textContent = "検索結果：" + results[ 0 ].geometry.location
+        //display.textContent = "検索結果：" + results[ 0 ].geometry.location
         var location = results[0].geometry.location;
-
         //DB登録用hidden項目にセット
+        // document.getElementById('target_latitude').textContent = location.lat();
+        // document.getElementById('target_longitude').textContent = location.lng();
         document.getElementById('topic_latitude').value = location.lat();
         document.getElementById('topic_longitude').value = location.lng();
         } else {
@@ -88,11 +87,18 @@ function codeAddress(){
         // infoWindowを表示
         infoWindow.open(map, marker);
     });
+            //マーカーのドロップ（ドラッグ終了）時のイベント
+            google.maps.event.addListener(marker, 'dragend', function(e) {
+                //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+                // document.getElementById('target_latitude').textContent = e.latLng.lat(),
+                // document.getElementById('target_longitude').textContent = e.latLng.lng()
+                document.getElementById('topic_latitude').value = e.latLng.lat(),
+                document.getElementById('topic_longitude').value = e.latLng.lng()
+                });
 }
 
 //最寄駅オートコンプリート
 $( function() {
-    var names = ['RUN','RUA'];
         $("#stasion_name").autocomplete({
         autoFocus: true,
         source: "/topics/topics/auto_complete.json",
@@ -108,13 +114,13 @@ $(function(){
             $("#topic_title").css("border","1px solid red")
             alert("タイトルを入力してください。");
             input_chk = "false";
-        }
+        }else {input_chk = "true";}
 
         if ($("#stasion_name").val() == ""){
             $("#stasion_name").css("border","1px solid red")
             alert("最寄駅を入力してください。");
-        input_chk = "false";
-        }
+            input_chk = "false";
+        }else {input_chk = "true";}
     if (input_chk == "false"){return false;}
     });
 });
@@ -197,15 +203,18 @@ $(function(){
     });
 });
 
-$('#form-picture1').on('change', function (e) {
-    if (e.target.files[0].size > 0) {
-        $('.img_upload2').slideDown("slow");
-    }
-});
-$('#form-picture2').on('change', function (e) {
-    if (e.target.files[0].size > 0) {
-        $('.img_upload3').slideDown("slow");
-    }
+//画像が投稿されたら、次の投稿フォームを表示
+$(function(){
+    $('#form-picture1').on('change', function (e) {
+        if (e.target.files[0].size > 0) {
+            $('.img_upload2').slideDown("slow");
+        }
+    });
+    $('#form-picture2').on('change', function (e) {
+        if (e.target.files[0].size > 0) {
+            $('.img_upload3').slideDown("slow");
+        }
+    });
 });
 
 

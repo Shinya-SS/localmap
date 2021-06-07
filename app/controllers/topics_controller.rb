@@ -49,7 +49,7 @@ class TopicsController < ApplicationController
 
   private
   def topic_params
-    params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3, :picture_4, :picture_5)
+    params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3)
   end
 
   def get_apikey

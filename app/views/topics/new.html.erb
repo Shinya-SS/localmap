@@ -5,24 +5,24 @@
                 <h1 class="text-center">スポットの投稿</h1>
                 <%= form_for @topic do |f| %>
                 <div class="form-group">
-                    <%= f.label :title,"タイトル" %>
-                    <%= f.text_field :title, class: 'form-control' %>
+                  <%= f.label :title,"タイトル" %>
+                  <%= f.text_field :title, class: 'form-control' %>
                 </div>
 
                 <div class="form-group form-station">
-                    <%= f.label :station,"最寄駅", id: "label-station" %>
-                    <%= f.text_field :station, class: 'form-control',id: 'stasion_name' %>
-                    <input type="button" value="検索" id="btn-station" onclick="codeAddress()">
+                  <%= f.label :station,"最寄駅", id: "label-station" %>
+                  <%= f.text_field :station, class: 'form-control',id: 'stasion_name' %>
+                  <input type="button" value="検索" id="btn-station" onclick="codeAddress()">
                 </div>
-                    <!-- デバッグ用緯度経度　確認-->
-                    <div id="display">何かが表示される、、、、！</div>
-                    <div id="target_latitude">いど！</div>
-                    <div id="target_longitude">けいど！  APIキー＝<%= @env %></div>
-                    <!-- ここまで -->
-                    <!--<input type="hidden" name="topic[latitude]" value="35.72871894239424">
-                    <input type="hidden" name="topic[longitude]" value="139.71208027196656">-->
-                    <%= f.hidden_field :latitude %>
-                    <%= f.hidden_field :longitude %>
+                  <!-- デバッグ用緯度経度　確認-->
+                  <!--<div id="display">何かが表示される、、、、！</div>
+                  <div id="target_latitude">いど！</div>
+                  <div id="target_longitude">けいど！  APIキー＝<%= @env %></div>-->
+                  <!--<input type="hidden" name="topic[latitude]" value="35.72871894239424">
+                  <input type="hidden" name="topic[longitude]" value="139.71208027196656">-->
+                  <!-- ここまで -->
+                <%= f.hidden_field :latitude, :value => "123" %>
+                <%= f.hidden_field :longitude, :value => "345" %>
 
         <div id='map'></div>
 
@@ -71,12 +71,11 @@
                       <%= f.file_field :picture_3 ,class: 'form-all-picutre',id: 'form-picture3' %>
                     </div>
 
-                <div class="picture_attention">※通行人の映り込みや、個人が特定されるもの等のご投稿はご遠慮ください。</div>
+                  <div class="picture_attention">※通行人の映り込みや、個人が特定されるもの等のご投稿はご遠慮ください。</div>
                 </div>
-                    <div id="btnUpload" style="display: none">ここだよ！</div>
                 <div class="form-group">
-                    <%= f.label :description,"コメント" %>
-                    <%= f.text_area :description, class: 'form-control' %>
+                  <%= f.label :description,"コメント" %>
+                  <%= f.text_area :description, class: 'form-control' %>
                 </div>
 
                 <%= f.submit '投稿', class: 'btn btn-black btn-block btn-last' %>
