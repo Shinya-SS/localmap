@@ -1,200 +1,246 @@
+/******************
+* new アクション
+*******************/
+
 .btn-black {
+  color: #565656;
+  border: 1px solid #565656;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  background-color: rgba(0,0,0,0.0);
+
+  &:hover {
     color: #565656;
-    border: 1px solid #565656;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 20px;
-    background-color: rgba(0,0,0,0.0);
-  
-    &:hover {
-      color: #565656;
-    }
+  }
+}
+
+//ナビゲーションバーのためのpadding
+.topic-new-wrapper {
+  padding-top: 120px;
+}
+
+//最寄駅のForm
+.form-station {
+  display: grid;
+  grid-template-columns: 300px 60px 1fr;
+
+  #label-station {
+    grid-column: 1/4;
   }
 
-  //最寄駅のForm
-  .form-station {
-    display: grid;
-    grid-template-columns: 300px 60px 1fr;
-
-    #label-station {
-      grid-column: 1/4;
-    }
-
-    #btn-station {
-      height: 30px;
-      margin-top: auto;
-    }
+  #btn-station {
+    height: 30px;
+    margin-top: auto;
   }
+}
 
-  //最後の要素のため少し幅を持たせる。
-  .btn-last {
-    margin-bottom: 50px;
-  }
+//最後の要素のため少し幅を持たせる。
+.btn-last {
+  margin-bottom: 50px;
+}
 
-  .topic-new-wrapper {
-    padding-top: 120px;
-  }
+//googlemapのサイズ
+#map {
+  height: 450px;
+  width: 700px;
+  margin-bottom: 50px;
+}
 
-  //googlemapのサイズ
-  #map {
-    height: 450px;
-    width: 700px;
-    margin-bottom: 50px;
-  }
+//写真投稿のファイル選択form
+.form-all-picutre {
+  margin-bottom: 10px;
+}
 
-  //写真投稿のファイル選択form
-  .form-all-picutre {
-    margin-bottom: 10px;
-  }
+//写真投稿の注意事項
+.picture_attention {
+  font-size: 11px;
+  color: #7f7f7f;
+}
 
+//画像投稿部分
+.img_field {
+  width: 200px;
+  height: 200px;
+  padding: 5px 8px;
+  border: solid 1px #DEE2E6;
+  text-align: center;
+  position: relative;
+  padding: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: 0.3s ease-out;
 
-  .heart {
-    width: 100px;
-    height: 100px;
-    background: url('icons/heart_animation.png') no-repeat;
-    background-position: 0 0;
-  }
-
-  @keyframes heartBlast {
-    0% {
-      background-position: left;
-    }
-    100% {
-      background-position: right;
-    }
-  }
-  
-  .HeartAnimation {
-    display: inline-block;
-    background-position: right;
-    -webkit-animation-name: heartBlast;
-    animation-name: heartBlast;
-    -webkit-animation-duration: .8s;
-    animation-duration: .8s;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-timing-function: steps(28);
-    animation-timing-function: steps(28);
-  }
-
-  .favorite-count {
-    display: inline;
-    color: red;
-    font-size: 32px ;
-  }
-
-  #map_show {
-    height: 400px;
-    width: 800px;
-  }
-
-  .show_image {
-    height: 160px;
-    width: 160px;
-    border-radius: 100px;
-  }
-
-  //写真投稿の注意事項
-  .picture_attention {
-    font-size: 11px;
-    color: #7f7f7f;
-  }
-
-
-
-
-  //画像投稿部分
-  .img_field {
-    width: 200px;
-    height: 200px;
-    padding: 5px 8px;
-    border: solid 1px #DEE2E6;
-    text-align: center;
-    position: relative;
-    padding: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: #fff;
-    overflow: hidden;
-    box-sizing: border-box;
+  &:hover {
+    background-color: #E8ECF1;
     transition: 0.3s ease-out;
+    opacity: 0.9;
+  }
+
+  i {
+    font-size: 45px;
+    color: #aaa;
+    line-height: 200px;
+    transition: 0.3s ease-out;
+  }
+}
+
+//投稿画像のプレビュー
+.preview{
+  width: 200px;
+  height: 200px;
+}
+
+//投稿画像のプレビュー
+#img_1 {
+  width: 200px;
+  height: 200px;
+}
+#img_2 {
+  width: 200px;
+  height: 200px;
+}
+#img_3 {
+  width: 200px;
+  height: 200px;
+}
+
+// file_field
+#form-picture1{
+  display: none;
+}
+#form-picture2{
+  display: none;
+}
+#form-picture3{
+  display: none;
+}
+// 次の画像投稿フォーム
+.img_upload2 {
+  display: none;
+}
+.img_upload3 {
+  display: none;
+}
+
+//画像投稿フォーム
+.pic_grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
   
-    &:hover {
-      background-color: #E8ECF1;
-      transition: 0.3s ease-out;
-      opacity: 0.9;
-    }
-  
-    i {
-      font-size: 45px;
-      color: #aaa;
-      line-height: 200px;
-      transition: 0.3s ease-out;
-    }
+  //削除ボタン
+  #del-img1 {
+    grid-column: 2/3;
+    width: 90px;
+    height: 25px;
+    margin-top: auto;
   }
+  #del-img2 {
+    grid-column: 2/3;
+    width: 90px;
+    height: 25px;
+    margin-top: auto;
+  }
+  #del-img3 {
+    grid-column: 2/3;
+    width: 90px;
+    height: 25px;
+    margin-top: auto;
+  }
+}
 
-  //投稿画像のプレビュー
-  .preview{
-    width: 200px;
-    height: 200px;
-  }
 
-  //投稿画像のプレビュー１
-  #img_1 {
-    width: 200px;
-    height: 200px;
-  }
-  #img_2 {
-    width: 200px;
-    height: 200px;
-  }
-    #img_3 {
-      width: 200px;
-      height: 200px;
-    }
+/******************
+* search アクション
+*******************/
 
-  // file_field
-  #form-picture1{
-    display: none;
-  }
-  #form-picture2{
-    display: none;
-  }
-  #form-picture3{
-    display: none;
-  }
-  // 次の画像投稿フォーム
-  .img_upload2 {
-    display: none;
-  }
-  .img_upload3 {
-    display: none;
-  }
+//検索のテキストボックス
+#inlineFormInputGroup {
+  width: 300px;
+  height: 35px;
+}
 
-  //画像投稿フォーム
-  .pic_grid {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    
-    #del-img1 {
-      grid-column: 2/3;
-      width: 90px;
-      height: 25px;
-      margin-top: auto;
-    }
-    #del-img2 {
-      grid-column: 2/3;
-      width: 90px;
-      height: 25px;
-      margin-top: auto;
-    }
-    #del-img3 {
-      grid-column: 2/3;
-      width: 90px;
-      height: 25px;
-      margin-top: auto;
-    }
+//駅名検索のForm
+.form-search-input{
+  display: grid;
+  grid-template-columns: 300px 60px 1fr;
+//検索のフォーム
+.search-form {
+  margin-bottom: 30px;
+}
+}
+
+//検索結果の各トピック
+.card {
+  background-color: #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 30px;
+  border: 1px solid #e6ecf0;
+  border-radius: 3px;
+}
+
+
+//いいねボタンのアニメーション
+.heart {
+  width: 100px;
+  height: 100px;
+  background: url('icons/heart_animation.png') no-repeat;
+  background-position: 0 0;
+}
+
+@keyframes heartBlast {
+  0% {
+    background-position: left;
   }
+  100% {
+    background-position: right;
+  }
+}
+
+.HeartAnimation {
+  display: inline-block;
+  background-position: right;
+  -webkit-animation-name: heartBlast;
+  animation-name: heartBlast;
+  -webkit-animation-duration: .8s;
+  animation-duration: .8s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-timing-function: steps(28);
+  animation-timing-function: steps(28);
+}
+
+.favorite-count {
+  display: inline;
+  color: red;
+  font-size: 32px ;
+}
+
+
+
+
+
+
+
+/******************
+* show アクション
+*******************/
+
+
+#map_show {
+  height: 400px;
+  width: 800px;
+}
+
+.show_image {
+  height: 160px;
+  width: 160px;
+  border-radius: 100px;
+}

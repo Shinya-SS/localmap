@@ -235,3 +235,20 @@ function del_img(number) {
         $('.img_upload3').slideUp("slow");
     }
 }
+
+
+/****************
+ * Serchアクション* 
+ ****************/
+//検索入力画面の初期表示(注意事項)
+// $(function(){
+//     $("#search").val("最寄駅を入力してください。").css("color","#CCC").one("focus",function(){
+//         $(this).val("").css("color","#000");
+//     }).blur(function(){
+//         if($(this).val()==""){
+//             $(this).val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
+//                 $(this).val("").css("color","#000");
+//             });
+//         }
+//     });
+// });

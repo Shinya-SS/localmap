@@ -10,10 +10,13 @@ class Topic < ApplicationRecord
     has_many :comments
     
     mount_uploader :picture_1, ImageUploader
+    mount_uploader :picture_2, ImageUploader
+    mount_uploader :picture_3, ImageUploader
+    
 
     #最寄駅検索Searchメソッド
     def self.search(search)
-        return Topic.all unless search
+         return Topic.all unless search
         Topic.where(['station LIKE ?', "%#{search}%"])
     end
 
