@@ -1,42 +1,3 @@
-let map
-let geocoder
-
-const display = document.getElementById('display')
-var marker;
-
-function initMap(){
-    geocoder = new google.maps.Geocoder()
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.681236, lng: 139.767125},
-        zoom: 16,
-    });
-
-// ドラッグ可能なマーカー
-    marker = new google.maps.Marker({
-        position:  {lat: 35.681236, lng: 139.767125},
-        map: map,
-        draggable: true
-    });
-//マーカーのドロップ（ドラッグ終了）時のイベント
-    google.maps.event.addListener(marker, 'dragend', function(e) {
-//イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
-        document.getElementById('topic_latitude').value  = e.latLng.lat(),
-        document.getElementById('topic_longitude').value = e.latLng.lng()
-    });
-
-// infoWindowは吹き出し
-    infoWindow = new google.maps.InfoWindow({
-    // contentで中身を指定
-    // 今回は文字にリンクを貼り付けた形で表示
-    content: `<a href='/pages/index'>リンクです！</a>`
-    });
-    // markerがクリックされた時、
-    marker.addListener("click", function(){
-        // infoWindowを表示
-        infoWindow.open(map, marker);
-    });
-}
 
 function codeAddress(){
     let inputAddress = document.getElementById('stasion_name').value;
@@ -87,14 +48,14 @@ function codeAddress(){
         // infoWindowを表示
         infoWindow.open(map, marker);
     });
-            //マーカーのドロップ（ドラッグ終了）時のイベント
-            google.maps.event.addListener(marker, 'dragend', function(e) {
-                //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
-                // document.getElementById('target_latitude').textContent = e.latLng.lat(),
-                // document.getElementById('target_longitude').textContent = e.latLng.lng()
-                document.getElementById('topic_latitude').value = e.latLng.lat(),
-                document.getElementById('topic_longitude').value = e.latLng.lng()
-                });
+        //マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener(marker, 'dragend', function(e) {
+            //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+            // document.getElementById('target_latitude').textContent = e.latLng.lat(),
+            // document.getElementById('target_longitude').textContent = e.latLng.lng()
+            document.getElementById('topic_latitude').value = e.latLng.lat(),
+            document.getElementById('topic_longitude').value = e.latLng.lng()
+        });
 }
 
 //最寄駅オートコンプリート
@@ -252,3 +213,12 @@ function del_img(number) {
 //         }
 //     });
 // });
+
+//最寄駅オートコンプリート
+$( function() {
+        $("#inlineFormInputGroup").autocomplete({
+        autoFocus: true,
+        source: "/topics/topics/auto_complete.json",
+        minLength: 1,
+    });
+});
