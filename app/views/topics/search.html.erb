@@ -1,34 +1,63 @@
-<br>
-<br>
-<br>
-<br><h1>検索</h1>
+<div class="topic-new-wrapper">
 
-<%= form_tag(search_topics_path,:method => 'get') do %>
-  <%= text_field_tag :search %>
-  <%= submit_tag 'Search', :name => nil %>
-<% end %>
+    <div class="container search-form">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="search-form">
+                    <h1>スポット検索</h1>
+                    <form class="form-inline">
+                        <div class="input-group">
+                            <%= form_tag(search_topics_path,:method => 'get') do %>
+                                <div class="form-search-input">
+                                <%= text_field_tag :search ,"", {class: 'form-control', id: 'inlineFormInputGroup', placeholder: "最寄駅を入力してください。"} %>
+                                <div class="input-group-append">
+                                    <%= button_tag :type => "submit", :class =>"btn btn-primary" do %>
+                                        <i class="fas fa-search fa-lg"></i>
+                                    <% end %>
+                                </div>
+                                </div>
+                            <% end %>
+                        </div>
+                    </form>
+                </div>
 
-<% @topics.each do |topic| %>
-    <div>
-        <%= topic.created_at %>
-        <%= topic.title %>
-    <!-- 確認用表示 -->
-        <%= topic.latitude %>
-        <%= topic.longitude %>
+                <div class="topic-contents">
+                    <% unless @topics.nil? %>
+                        <% @topics.each do |topic| %>
+                            <div class="search-topic" >
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><b>タイトル<%= topic.title %>:ID<%= topic.id %></b></h5>
+                                        <h6 class="card-subtitle my-2 text-muted">
+                                            緯度<%= topic.latitude %>:経度<%= topic.longitude %> ・投稿日:<%= topic.created_at %>
+                                        </h6>
+                                        <p class="card-text"><%= topic.description %></p>
+                                        <div class="topic-picture-sch">
+                                            <% unless topic.picture_1.url.nil? %>
+                                                <%= image_tag topic.picture_1.url, class: "show_image" %>
+                                            <% end %>
+                                        </div>
+                                        <div>
+                                        <%= link_to 'Show', topic %>
+                                            <div id="favorite-button-<%= topic.id %>">
+                                                <%= render 'favorites/favorite', topic: topic %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%= hidden_field_tag :topic_latitude, topic.latitude, id: "latitude_#{topic.id}" %>
+                            <%= hidden_field_tag :topic_longitude, topic.longitude, id: "longitude_#{topic.id}" %>
+                        <% end %>
+                    <% end %>
+                </div>
+
+                <input type="button" value="クリック" onclick="map_click()">
+                <div id='map'></div>
+            </div>
+        </div>
     </div>
-    <!-- ここまで -->
-    <div>
-    <%= link_to 'Show', topic %>
-    <div id="favorite-button-<%= topic.id %>">
-        <%= render 'favorites/favorite', topic: topic %>
-    </div>
-    <div>
-    <%= hidden_field_tag :topic_latitude, topic.latitude %>
-    <%= hidden_field_tag :topic_longitude, topic.longitude %>
-<% end %>
-
-<input type="button" value="クリック" onclick="map_click()">
-<div id='map'></div>
+</div>
 
 <script>
 let map
@@ -115,21 +144,6 @@ function map_click(){
 // map.panTo(new google.maps.LatLng(latitude,longitude));
 
 }
-
-
-
-//検索入力画面の初期表示(注意事項)
-$(function(){
-    $("#search").val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
-        $(this).val("").css("color","#000");
-    }).blur(function(){
-        if($(this).val()==""){
-            $(this).val("○○駅と入力してください。").css("color","#CCC").one("focus",function(){
-                $(this).val("").css("color","#000");
-            });
-        }
-    });
-});
 
 </script>
 
