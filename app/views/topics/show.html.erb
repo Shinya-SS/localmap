@@ -1,50 +1,52 @@
+<div class="topic-new-wrapper">
 
-<br>
-<br>
-<br>
-<br>
-<br>
-    <div>
-        <%= @topic.created_at %>
-        <%= @topic.title %>
-    <!-- 確認用表示 -->
-        <%= @topic.latitude %>
-        <%= @topic.longitude %>
-        
-    </div>
-<!--<div id="map_show"></div>-->
-
-<% unless @topic.picture_1.url.nil? %>
-    <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
-        <%= image_tag @topic.picture_1.url, class: "show_image" %>
-    <% end %>
-<% end %>
-
-<div><p>投稿者コメント</p>
-<%= @topic.description %>
-</div>
-<div class="heart"></div>
-
-<input type="button" value="PDF出力">
-
-<div class="form-group">
-    <ul>
-        <li class="comment-create">
-            <h3 class="text-left title">コメント</h3>
-        </li>
-        <li>
-            <div id="comments_area">
-                <%= render 'comments/index', comments: @comments %>
+    <div class="container">
+        <div class="row">
+            <div class="ol-md-12" >
+                <div class="card">
+                    <div class="card-img-top" id="map_show"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">タイトル：<%= @topic.title %></h5>
+                        <p class="card-text">投稿日時：<%= @topic.created_at %></p>
+                        <p class="card-text">投稿者コメント：<%= @topic.description %></p>
+                    </div>
+                    <!-- 表示確認用 -->
+                    緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>
+                    <!-- ここまで -->
+                    <div class="card-body">
+                    <% unless @topic.picture_1.url.nil? %>
+                        <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
+                            <%= image_tag @topic.picture_1.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    <h3>コメント</h3>
+                        <li class="list-group-item">
+                        <div id="comments_area">
+                            <%= render 'comments/index', comments: @comments %>
+                        </div>
+                        </li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        
+                        <li class="list-group-item"></li>
+                    
+                    </ul>
+                    <div class="heart"></div>
+                    <% if logged_in? %>
+                        <div class="comment-create">
+                            <h3 class="text-left">コメントを投稿する</h3>
+                            <%= render 'comments/form', comment: @comment, topic: @topic %>
+                        </div>
+                    <% end %>
+                </div>
             </div>
-        </li>
-    </ul>
-    <hr>
-    <% if logged_in? %>
-        <div class="comment-create">
-            <h3 class="text-left">コメントを投稿する</h3>
-            <%= render 'comments/form', comment: @comment, topic: @topic %>
         </div>
-    <% end %>
+    </div>
+<div class="show-bottom"></div>
 </div>
 
 <script>
