@@ -1,50 +1,56 @@
+<div class="topic-new-wrapper">
 
-<br>
-<br>
-<br>
-<br>
-<br>
-    <div>
-        <%= @topic.created_at %>
-        <%= @topic.title %>
-    <!-- 確認用表示 -->
-        <%= @topic.latitude %>
-        <%= @topic.longitude %>
-        
-    </div>
-<!--<div id="map_show"></div>-->
-
-<% unless @topic.picture_1.url.nil? %>
-    <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
-        <%= image_tag @topic.picture_1.url, class: "show_image" %>
-    <% end %>
-<% end %>
-
-<div><p>投稿者コメント</p>
-<%= @topic.description %>
-</div>
-<div class="heart"></div>
-
-<input type="button" value="PDF出力">
-
-<div class="form-group">
-    <ul>
-        <li class="comment-create">
-            <h3 class="text-left title">コメント</h3>
-        </li>
-        <li>
-            <div id="comments_area">
-                <%= render 'comments/index', comments: @comments %>
+    <div class="container">
+        <div class="row">
+            <div class="ol-md-12" >
+                <div class="card card-topic">
+                    <div class="card-img-top" id="map_show"></div>
+                    <div class="card-body">
+                        <h2 class="card-title card-title-topic">タイトル：<%= @topic.title %></h5>
+                        <h4 class="card-text">最寄駅：<%= @topic.station %></h4>
+                        <p class="card-text">投稿者コメント：<%= @topic.description %></p>
+                        <p class="card-text">投稿日時：<%= @topic.created_at %></p>
+                    </div>
+                    <!-- 表示確認用 -->
+                    <strong>確認用</strong>　緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>
+                    <!-- ここまで -->
+                    <div class="card-body">
+                    <% unless @topic.picture_1.url.nil? %>
+                        <%=  link_to @topic.picture_1.url, 'data-lightbox': @topic.picture_1 do %>
+                            <%= image_tag @topic.picture_1.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
+                    <% unless @topic.picture_2.url.nil? %>
+                        <%=  link_to @topic.picture_2.url, 'data-lightbox': @topic.picture_1 do %>
+                            <%= image_tag @topic.picture_2.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
+                    <% unless @topic.picture_3.url.nil? %>
+                        <%=  link_to @topic.picture_3.url, 'data-lightbox': @topic.picture_3 do %>
+                            <%= image_tag @topic.picture_3.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
+                    </div>
+                    <div class="heart"></div>
+                    <ul class="list-group list-group-flush">
+                    <h3>コメント</h3>
+                        <li class="list-group-item">
+                            <div id="comments_area">
+                                <%= render 'comments/index', comments: @comments %>
+                            </div>
+                            <% if logged_in? %>
+                                <div class="comment-create">
+                                    <h3 class="text-left">コメント投稿</h3>
+                                    <%= render 'comments/form', comment: @comment, topic: @topic %>
+                                </div>
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </li>
-    </ul>
-    <hr>
-    <% if logged_in? %>
-        <div class="comment-create">
-            <h3 class="text-left">コメントを投稿する</h3>
-            <%= render 'comments/form', comment: @comment, topic: @topic %>
         </div>
-    <% end %>
+    </div>
+<div class="show-bottom"></div>
 </div>
 
 <script>
@@ -63,11 +69,10 @@ function initMap(){
         zoom: 16,
     });
 
-    // ドラッグ可能なマーカー
+    // ドラッグ不可のマーカー
     marker = new google.maps.Marker({
         position: {lat: latitude, lng:longitude},
-        map: map,
-        draggable: true
+        map: map
     });
 }
 

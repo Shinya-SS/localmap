@@ -177,7 +177,7 @@
 }
 
 //検索結果の各トピック
-.card {
+.card-topic {
   background-color: #fff;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -233,14 +233,33 @@
 * show アクション
 *******************/
 
-
+//googlemapの大きさ
 #map_show {
-  height: 400px;
-  width: 800px;
+  height: 500px;
+  width: auto;
 }
 
+//投稿タイトル
+.card-title-topic{
+  text-align: center;
+}
+
+//コメント「もっとみる」テキスト
+.more {
+  margin-left: 20px;
+}
+.more:hover{
+  cursor: pointer;
+}
+
+//投稿画像の大きさ
 .show_image {
   height: 160px;
   width: 160px;
   border-radius: 100px;
+}
+
+//一番下の幅調整
+.show-bottom{
+  margin-top:30px;
 }

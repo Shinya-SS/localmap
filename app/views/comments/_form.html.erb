@@ -1,4 +1,8 @@
 <%= form_with(model: [topic, comment], url: topic_comments_path(@topic) ) do |f| %>
-    <%= f.text_area :comment, class: "input-mysize" %>
-    <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+    <div class="form-group">
+        <%= f.text_area :comment, class: "input-comment-text" %>
+        <%= button_tag :type => "submit", :class => "btn btn-outline-dark comment-submit float-right" do %>
+            送信  <i class="fas fa-paper-plane"></i>
+        <% end %>
+    </div>
 <% end %>
