@@ -6,12 +6,13 @@
                 <div class="card">
                     <div class="card-img-top" id="map_show"></div>
                     <div class="card-body">
-                        <h5 class="card-title">タイトル：<%= @topic.title %></h5>
-                        <p class="card-text">投稿日時：<%= @topic.created_at %></p>
+                        <h2 class="card-title">タイトル：<%= @topic.title %></h5>
+                        <h4 class="card-text">最寄駅：<%= @topic.station %></h4>
                         <p class="card-text">投稿者コメント：<%= @topic.description %></p>
+                        <p class="card-text">投稿日時：<%= @topic.created_at %></p>
                     </div>
                     <!-- 表示確認用 -->
-                    緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>
+                    <strong>確認用</strong>　緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>
                     <!-- ここまで -->
                     <div class="card-body">
                     <% unless @topic.picture_1.url.nil? %>
@@ -19,29 +20,32 @@
                             <%= image_tag @topic.picture_1.url, class: "show_image" %>
                         <% end %>
                     <% end %>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <% unless @topic.picture_2.url.nil? %>
+                        <%=  link_to @topic.picture_2.url, 'data-lightbox': @topic.picture_1 do %>
+                            <%= image_tag @topic.picture_2.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
+                    <% unless @topic.picture_3.url.nil? %>
+                        <%=  link_to @topic.picture_3.url, 'data-lightbox': @topic.picture_3 do %>
+                            <%= image_tag @topic.picture_3.url, class: "show_image" %>
+                        <% end %>
+                    <% end %>
                     </div>
+                    <div class="heart"></div>
                     <ul class="list-group list-group-flush">
                     <h3>コメント</h3>
                         <li class="list-group-item">
-                        <div id="comments_area">
-                            <%= render 'comments/index', comments: @comments %>
-                        </div>
+                            <div id="comments_area">
+                                <%= render 'comments/index', comments: @comments %>
+                            </div>
+                            <% if logged_in? %>
+                                <div class="comment-create">
+                                    <h3 class="text-left">コメント投稿</h3>
+                                    <%= render 'comments/form', comment: @comment, topic: @topic %>
+                                </div>
+                            <% end %>
                         </li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                        
-                        <li class="list-group-item"></li>
-                    
                     </ul>
-                    <div class="heart"></div>
-                    <% if logged_in? %>
-                        <div class="comment-create">
-                            <h3 class="text-left">コメントを投稿する</h3>
-                            <%= render 'comments/form', comment: @comment, topic: @topic %>
-                        </div>
-                    <% end %>
                 </div>
             </div>
         </div>
@@ -65,11 +69,10 @@ function initMap(){
         zoom: 16,
     });
 
-    // ドラッグ可能なマーカー
+    // ドラッグ不可のマーカー
     marker = new google.maps.Marker({
         position: {lat: latitude, lng:longitude},
-        map: map,
-        draggable: true
+        map: map
     });
 }
 

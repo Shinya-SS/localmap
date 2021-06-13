@@ -1,11 +1,11 @@
 
-<!-- コメント内容（２件以内）---------->
-<ul>
-<%= comments.count %>件のコメント
+<!-- コメント内容（3件以内）---------->
+<ul class="list-group list-group-flush">
+<h5><%= comments.count %>件のコメント<h4>
 <h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6>
-<% comments.first(2).each do |comment| %>
+<% comments.first(3).each do |comment| %>
     <% unless comment.id.nil? %>
-        <li class="comment-container">
+        <li class="list-group-item comment-content">
             <div class="comment-box">
                 <div class="comment-avatar">
                     <!--ユーザの顔-->
@@ -13,15 +13,15 @@
                 <div class="comment-text">
                     <!--<p>ユーザへのリンク</p>-->
                     <div class="comment-entry">
-                        IDは<%= comment.id %>
                         <%= comment.comment %>
                         <% if comment.user == current_user %>
                             <%= link_to(topic_comment_path(comment.topic_id, comment.id), method: :delete, remote: true, class: "comment_destroy") do %>
-                                <i class="fas fa-trash" style="color: black;">削除</i>
+                                <i class="fas fa-trash delete-tag" style="color: black;"></i>
                             <% end %>
                         <% end %>
                     </div>
                     <span class="comment-date pull-right">
+                        <%= comment.user.name %>
                         <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                     </span>
                 </div>
@@ -29,14 +29,11 @@
         </li>
     <% end %>
 <% end %>
-</ul>
-
-<!-- コメント内容（3件目以降）---------->
-<ul>
+<!-- コメント内容（4件目以降）---------->
 <div class="collapse" id="collapseExample">
-    <% comments.offset(2).each do |comment| %>
+    <% comments.offset(3).each do |comment| %>
         <% unless comment.id.nil? %>
-            <li class="comment-container">
+            <li class="list-group-item comment-content">
                 <div class="comment-box">
                     <div class="comment-avatar">
                         <!--ユーザの顔-->
@@ -45,14 +42,14 @@
                         <!--<p>ユーザへのリンク</p>-->
                         <div class="comment-entry">
                             <%= comment.comment %>
-                            IDは<%= comment.id %>
                             <% if comment.user == current_user %>
                                 <%= link_to(topic_comment_path(comment.topic_id, comment.id), method: :delete, remote: true, class: "comment_destroy") do %>
-                                    <i class="fas fa-trash" style="color: black;">削除</i>
+                                    <i class="fas fa-trash delete-tag" style="color: black;"></i>
                                 <% end %>
                             <% end %>
                         </div>
                         <span class="comment-date pull-right">
+                            <%= comment.user.name %>
                             <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                         </span>
                     </div>

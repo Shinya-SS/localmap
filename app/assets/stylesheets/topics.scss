@@ -239,6 +239,19 @@
   width: auto;
 }
 
+//投稿タイトル
+.card-title{
+  text-align: center;
+}
+
+//コメント「もっとみる」テキスト
+.more {
+  margin-left: 20px;
+}
+.more:hover{
+  cursor: pointer;
+}
+
 //投稿画像の大きさ
 .show_image {
   height: 160px;
@@ -246,7 +259,7 @@
   border-radius: 100px;
 }
 
-//一番下の幅調整aa
+//一番下の幅調整
 .show-bottom{
   margin-top:30px;
 }
