@@ -25,9 +25,9 @@
                     <% unless @topics.nil? %>
                         <% @topics.each do |topic| %>
                             <div class="search-topic" >
-                                <div class="card">
+                                <div class="card card-topic">
                                     <div class="card-body">
-                                        <h5 class="card-title"><b>タイトル<%= topic.title %>:ID<%= topic.id %></b></h5>
+                                        <h5 class="card-title card-title-topic"><b>タイトル<%= topic.title %>:ID<%= topic.id %></b></h5>
                                         <h6 class="card-subtitle my-2 text-muted">
                                             緯度<%= topic.latitude %>:経度<%= topic.longitude %> ・投稿日:<%= topic.created_at %>
                                         </h6>
