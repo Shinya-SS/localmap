@@ -2,13 +2,12 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder mypage-header">Welcome to Localmapping!</h1>
-            <p class="lead mb-0 pull-right">ようこそ！　ログインさん</p>
+            <p class="lead mb-0 pull-right">ようこそ！　<%= current_user.name %>さん</p>
         </div>
     </div>
 </header>
-
 <!-- Page content-->
-<div class="container">
+<div class="container mypage-container">
     <div class="row">
         <!-- マイページ（メイン部分）-->
         <div class="col-lg-8">
@@ -17,11 +16,13 @@
                 <div class="card-body">
                     <h2 class="card-title">人気ランキング</h2>
                 </div>
-                <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+                <!--<img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />-->
+                <div class="card-img-top card-ranking-map" id='map_mypage'></div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Top１（いいね順番）</li>
                     <li class="list-group-item">Top２（いいね順番）</li>
                     <li class="list-group-item">Top３（いいね順番）</li>
+                    <div id="debug"></div>
                 </ul>
             </div>
             <!-- オススメ（投稿日が最新のもの上位４件）　-->
@@ -80,12 +81,30 @@
         <div class="col-lg-4">
             <!-- Myスポット -->
             <div class="card mb-4">
-                <div class="card-header">Myスポット</div>
+                <div class="card-header"><a href="#">Myスポット</a></div>
                 <div class="card-body">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% @topics.each do |topic| %>
+                                <li class="list-group-item">
+                                    <div class="myspot-container">
+                                        <div class="myspot-left">
+                                            <% unless topic.picture_1.url.nil? %>
+                                                <%= image_tag topic.picture_1.url, class: "myspot-picture" %>
+                                            <% end %>
+                                        </div>
+                                        <div class="myspot-right">
+                                            <div><strong>タイトル：</strong><%= topic.title %></div>
+                                            <div><strong>最寄駅：</strong><%= topic.station %></div>
+                                            <div><strong>投稿者：</strong><%= topic.user.name %></div>
+                                            <div><strong>更新日：</strong><%= topic.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                        </div>
+                                        <div class="myspot-show">
+                                            <a class="btn btn-primary" href="/topics/<%= topic.id %>">投稿へ →</a>
+                                        </div>
+                                    </div>
+                                </li>
+                        <% end %>
+                    </ul>
                 </div>
             </div>
             <!-- Categories widget-->
@@ -95,6 +114,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="list-unstyled mb-0">
+                                <li><a href="/topic/3">URL直打ちで飛べるか？JS用</a></li>
                                 <li><a href="#!">Web Design</a></li>
                                 <li><a href="#!">HTML</a></li>
                                 <li><a href="#!">Freebies</a></li>
@@ -121,67 +141,31 @@
 
 
 
-<style>
+<script>
+let map
+let geocoder
+const topics_rank = gon.topics_rank //Controllerで取得したいいねランキングの上位Topics
 
-.fw-bolder {
-    font-weight: bolder !important;
+for (let i = 0; i < topics_rank.length; i++) {
+// alert(topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude);
+document.getElementById('debug').textContent += i + "←ID"+ topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude+ "---";
 }
 
-.mypage-header{
-    margin-bottom: 50px;
+function initMap(){
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map_mypage'), {
+        center: {lat: 35.681236, lng: 139.767125},
+        zoom: 15,
+    });
+
+    // ドラッグ不可のマーカー
+    marker = new google.maps.Marker({
+        position: {lat: 35.681236, lng: 139.767125},
+        map: map
+    });
 }
 
-.lead {
-    font-size: 1.75rem;
-    font-weight: 300;
-}
+</script>
 
-.mb-0 {
-    margin-bottom: 0 !important;
-}
-
-
-.col-lg-8 {
-    flex: 0 0 auto;
-    width: 66.6666666667%;
-}
-.card {
-position: relative;
-display: flex;
-flex-direction: column;
-min-width: 0;
-word-wrap: break-word;
-background-color: #fff;
-background-clip: border-box;
-border: 1px solid rgba(0, 0, 0, 0.125);
-border-radius: 0.25rem;
-}
-
-.card-title {
-    margin-bottom: 0.5rem;
-}
-
-.card-body {
-    flex: 1 1 auto;
-    padding: 1rem 1rem;
-}
-
-.card-img,
-.card-img-top,
-.card-img-bottom {
-    width: 100%;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem !important;
-}
-
-.card-header {
-    padding: 1rem 1rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-
-</style>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
