@@ -16,7 +16,7 @@ class Topic < ApplicationRecord
 
     #最寄駅検索Searchメソッド
     def self.search(search)
-         return Topic.all unless search
+        return Topic.all unless search
         Topic.where(['station LIKE ?', "%#{search}%"])
     end
 

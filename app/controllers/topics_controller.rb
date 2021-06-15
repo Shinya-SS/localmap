@@ -1,5 +1,7 @@
 class TopicsController < ApplicationController
 
+  before_action :set_topic, only: [:edit, :update]
+
   def new
     @topic = Topic.new
     @env = get_apikey
@@ -41,6 +43,22 @@ class TopicsController < ApplicationController
     gon.ido = @topic.latitude
   end
 
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @topic.update(topic_params)
+        format.html { redirect_to topic_path(@topic), success: '編集に成功しました' }
+        format.json { render :show, status: :ok, location: @topic }
+      else
+        format.html { flash.now[:danger] = "編集に失敗しました"
+          render :edit}
+        format.json { render json: @topic.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def auto_complete
     stations = Station.select(:name).distinct.where("name like '%" + params[:term] + "%'").order(:name)
     stations = stations.map(&:name)
@@ -52,8 +70,12 @@ class TopicsController < ApplicationController
     params.require(:topic).permit(:title, :description, :station, :latitude, :longitude, :picture_1, :picture_2, :picture_3)
   end
 
+  def set_topic
+    @topic = Topic.find(params[:id])
+  end
+
   def get_apikey
-    ENV['GOOGLE_MAP_API']
+    # ENV['GOOGLE_MAP_API']
     # ''
   end
 
