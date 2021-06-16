@@ -18,10 +18,32 @@
                 </div>
                 <!--<img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />-->
                 <div class="card-img-top card-ranking-map" id='map_mypage'></div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Top１（いいね順番）</li>
-                    <li class="list-group-item">Top２（いいね順番）</li>
-                    <li class="list-group-item">Top３（いいね順番）</li>
+                <ul class="list-group list-group-flush list-spot-ranking">
+                    <% cnt = 1 %>
+                    <% @topics_rank.each do |rank| %>
+                        <li class="list-group-item">
+                            <div class="rank-spot-container">
+                                <div class="rank-spot-top">
+                                    <div><strong>No<%= cnt %></strong>　<%= rank.rank %> いいね <i class="far fa-thumbs-up fa-lg"></i></div>
+                                </div>
+                                <div class="rank-spot-left">
+                                    <% unless rank.picture_1.url.nil? %>
+                                        <%= image_tag rank.picture_1.url, class: "myspot-picture" %>
+                                    <% end %>
+                                </div>
+                                <div class="rank-spot-right">
+                                    <div><strong>タイトル：</strong><%= rank.title %></div>
+                                    <div><strong>最寄駅：</strong><%= rank.station %></div>
+                                    <div><strong>投稿者：</strong><%= rank.user.name %></div>
+                                    <div><strong>更新日：</strong><%= rank.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                </div>
+                                <div class="rank-spot-show">
+                                    <a class="btn btn-primary" href="/topics/<%= rank.id %>">投稿へ →</a>
+                                </div>
+                            </div>
+                        </li>
+                    <% cnt += 1%>
+                    <% end %>
                     <div id="debug"></div>
                 </ul>
             </div>
