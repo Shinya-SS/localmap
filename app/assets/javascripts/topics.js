@@ -91,6 +91,7 @@ $(function(){
     $fileField = $('#form-picture1')
 
     $($fileField).on('change', $fileField, function(e) {
+        alert("gazo!");
         file = e.target.files[0]
         reader = new FileReader(),
         $preview = $('#img_field1');
@@ -180,8 +181,17 @@ $(function(){
 
 
 //写真削除ボタンメソッド
-function del_img(number) {
-    var preview = document.getElementById('preview' + number);
+function del_img(number,pages) {
+    var preview
+    if (pages == 'new') {
+        preview = document.getElementById('preview' + number);
+    }else if (pages == 'edit'){
+        preview = document.getElementById('preview' + number);
+        //初期表示の場合
+        if (preview === null) {
+            preview = document.getElementById('img_' + number);
+        }
+    }
     preview.parentNode.removeChild(preview);
     var img_field_element = document.getElementById('img_field' + number);
     const img_f = document.createElement('i');
@@ -190,10 +200,12 @@ function del_img(number) {
     var pic = document.getElementById('form-picture' + number);
     pic.value = "";
 
-    if (number == '2') {
-        $('.img_upload2').slideUp("slow");
-    } else if (number == '3') {
-        $('.img_upload3').slideUp("slow");
+    if (pages == 'new'){
+        if (number == '2') {
+            $('.img_upload2').slideUp("slow");
+        } else if (number == '3') {
+            $('.img_upload3').slideUp("slow");
+        }
     }
 }
 

@@ -23,7 +23,7 @@
                     <%= f.label :picture_1,"投稿写真(３枚まで)" %>
 
                     <div class="img_upload_edit_1">
-                        <div class="pic_grid">
+                        <div class="pic_grid_edit">
                             <div class="img_field" id="img_field1" onClick="$('#form-picture1').click()">
                                 <% if @topic.picture_1.present? %>
                                     <%= image_tag(@topic.picture_1.url, id: 'img_1') %>
@@ -31,13 +31,17 @@
                                     <i class="fas fa-images"></i>
                                 <% end %>
                             </div>
-                        <button type="button" id="del-img1" onClick="del_img('1')">画像を削除</button>
+                            <% if @topic.picture_1.present? %>
+                                <div id="del-img-check1"><p>投稿した画像を削除する</p>
+                                    <%= f.check_box :remove_picture_1, style: 'transform:scale(2.0);' %>
+                                </div>
+                            <% end %>
                         </div>
                         <%= f.file_field :picture_1 ,class: 'form-all-picutre',id: 'form-picture1' %>
                     </div>
 
                     <div class="img_upload_edit_2">
-                        <div class="pic_grid">
+                        <div class="pic_grid_edit">
                             <div class="img_field" id="img_field2" onClick="$('#form-picture2').click()">
                                 <% if @topic.picture_2.present? %>
                                     <%= image_tag(@topic.picture_2.url, id: 'img_2') %>
@@ -45,13 +49,17 @@
                                     <i class="fas fa-images"></i>
                                 <% end %>
                             </div>
-                            <button type="button" id="del-img2" onClick="del_img('2')">画像を削除</button>
+                            <% if @topic.picture_2.present? %>
+                            <div id="del-img-check2"><p>投稿した画像を削除する</p>
+                                <%= f.check_box :remove_picture_2, style: 'transform:scale(2.0);' %>
+                            </div>
+                            <% end %>
                         </div>
                         <%= f.file_field :picture_2 ,class: 'form-all-picutre',id: 'form-picture2' %>
                     </div>
 
                     <div class="img_upload_edit_3">
-                        <div class="pic_grid">
+                        <div class="pic_grid_edit">
                             <div class="img_field" id="img_field3" onClick="$('#form-picture3').click()">
                                 <% if @topic.picture_3.present? %>
                                     <%= image_tag(@topic.picture_3.url, id: 'img_3') %>
@@ -59,7 +67,11 @@
                                     <i class="fas fa-images"></i>
                                 <% end %>
                             </div>
-                            <button type="button" id="del-img3" onClick="del_img('3')">画像を削除</button>
+                            <% if @topic.picture_3.present? %>
+                                <div id="del-img-check3"><p>投稿した画像を削除する</p>
+                                    <%= f.check_box :remove_picture_3, style: 'transform:scale(2.0);' %>
+                                </div>
+                            <%end%>
                         </div>
                     <%= f.file_field :picture_3 ,class: 'form-all-picutre',id: 'form-picture3' %>
                     </div>
@@ -81,10 +93,9 @@
 
 
 <script>
-let map
-let geocoder
+var map
+var geocoder
 
-const display = document.getElementById('display')
 var marker;
 
 function initMap(){

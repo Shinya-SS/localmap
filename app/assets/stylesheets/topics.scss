@@ -263,3 +263,30 @@
 .show-bottom{
   margin-top:30px;
 }
+
+
+/******************
+* edit アクション
+*******************/
+//画像投稿フォーム
+.pic_grid_edit {
+  display: grid;
+  grid-template-columns: 200px 175px;
+  
+  //削除チェックボックス
+  #del-img-check1{
+    grid-column: 2/3;
+    margin-top: auto;
+    text-align: center;
+  }
+  #del-img-check2{
+    grid-column: 2/3;
+    margin-top: auto;
+    text-align: center;
+  }
+  #del-img-check3{
+    grid-column: 2/3;
+    margin-top: auto;
+    text-align: center;
+  }
+}
