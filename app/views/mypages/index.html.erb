@@ -14,7 +14,7 @@
             <!-- いいね順のランキング（最寄駅で検索（USERの最寄駅ベース））-->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h2 class="card-title">人気ランキング</h2>
+                    <h2 class="card-title ranking-title">人気ランキング</h2>
                 </div>
                 <!--<img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />-->
                 <div class="card-img-top card-ranking-map" id='map_mypage'></div>
@@ -28,14 +28,14 @@
                                 </div>
                                 <div class="rank-spot-left">
                                     <% unless rank.picture_1.url.nil? %>
-                                        <%= image_tag rank.picture_1.url, class: "myspot-picture" %>
+                                        <%= image_tag rank.picture_1.url, class: "rank-spot-picture" %>
                                     <% end %>
                                 </div>
                                 <div class="rank-spot-right">
                                     <div><strong>タイトル：</strong><%= rank.title %></div>
-                                    <div><strong>最寄駅：</strong><%= rank.station %></div>
-                                    <div><strong>投稿者：</strong><%= rank.user.name %></div>
-                                    <div><strong>更新日：</strong><%= rank.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                    <div><strong>最寄駅　：</strong><%= rank.station %></div>
+                                    <div><strong>投稿者　：</strong><%= rank.user.name %></div>
+                                    <div><strong>更新日　：</strong><%= rank.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
                                 </div>
                                 <div class="rank-spot-show">
                                     <a class="btn btn-primary" href="/topics/<%= rank.id %>">投稿へ →</a>
@@ -49,54 +49,26 @@
             </div>
             <!-- オススメ（投稿日が最新のもの上位４件）　-->
             <div class="text-center">
-                <h2 calss="fw-bolder">オススメスポット</h2>
+                <h2 calss="fw-bolder">最新オススメスポット</h2>
             </div>
             <!-- Rails でTopicsを取得してLOOPさせる。 -->
             <div class="row">
-                <div class="col-lg-6">
-                    <!-- Blog post-->
+            <% @new_topics.each do |new_topic| %>
+                <% if @new_cnt.even? %><div class="col-lg-6"><% end %>
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <% unless new_topic.picture_1.url.nil? %>
+                            <%= image_tag new_topic.picture_1.url, class: "new-topic-picture" %>
+                        <% end %>
                         <div class="card-body">
-                            <div class="small text-muted">January 1, 2021</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
+                            <div class="small text-muted"><strong>投稿日：</strong><%= new_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                            <h2 class="card-title h4"><%= new_topic.title %></h2>
+                            <p class="card-text"><%= new_topic.description %></p>
+                            <a class="btn btn-primary" href="/topics/<%= new_topic.id %>">投稿へ →</a>
                         </div>
                     </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2021</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2021</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2021</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                </div>
+                <% if @new_cnt.odd? %></div><% end %>
+                <% @new_cnt += 1 %>
+            <% end %>
             </div>
         </div>
         <!-- 左部分のコンテナ(Myスポット、投稿一覧(簡易的)、MyPage(未実装)）) -->
@@ -116,9 +88,9 @@
                                         </div>
                                         <div class="myspot-right">
                                             <div><strong>タイトル：</strong><%= topic.title %></div>
-                                            <div><strong>最寄駅：</strong><%= topic.station %></div>
-                                            <div><strong>投稿者：</strong><%= topic.user.name %></div>
-                                            <div><strong>更新日：</strong><%= topic.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                            <div><strong>最寄駅　：</strong><%= topic.station %></div>
+                                            <div><strong>投稿者　：</strong><%= topic.user.name %></div>
+                                            <div><strong>更新日　：</strong><%= topic.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
                                         </div>
                                         <div class="myspot-show">
                                             <a class="btn btn-primary" href="/topics/<%= topic.id %>">投稿へ →</a>
@@ -131,25 +103,33 @@
             </div>
             <!-- Categories widget-->
             <div class="card mb-4">
-                <div class="card-header">投稿一覧</div>
+                <div class="card-header"><a href="#">自分の投稿一覧</a></div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="/topic/3">URL直打ちで飛べるか？JS用</a></li>
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% @my_topics.each do |topic| %>
+                                <li class="list-group-item">
+                                    <div class="mysubmit-container">
+                                        <div class="mysubmit-left">
+                                            <% unless topic.picture_1.url.nil? %>
+                                                <%= image_tag topic.picture_1.url, class: "mysubmit-picture" %>
+                                            <% end %>
+                                        </div>
+                                        <div class="mysubmit-right">
+                                            <div><strong>タイトル：</strong><%= topic.title %></div>
+                                            <div><strong>最寄駅　：</strong><%= topic.station %></div>
+                                            <div><strong>投稿者　：</strong><%= topic.user.name %></div>
+                                            <div><strong>更新日　：</strong><%= topic.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                        </div>
+                                        <div class="mysubmit-show">
+                                            <a class="btn btn-primary" href="/topics/<%= topic.id %>">投稿へ →</a>
+                                        </div>
+                                        <div class="mysubmit-edit">
+                                            <a class="btn btn-success" href="/topics/<%= topic.id %>/edit">編集 →</a>
+                                        </div>
+                                    </div>
+                                </li>
+                        <% end %>
+                    </ul>
                 </div>
             </div>
             <!-- ユーザ情報 -->
