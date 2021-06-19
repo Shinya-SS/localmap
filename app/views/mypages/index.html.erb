@@ -12,7 +12,7 @@
     <div class="row">
         <!-- マイページ（メイン部分）-->
         <div class="col-lg-8">
-            <!-- いいね順のランキング（最寄駅で検索（USERの最寄駅ベース））-->
+            <!-- いいね順のランキング-->
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title ranking-title">人気ランキング</h2>
@@ -52,7 +52,7 @@
             <div class="text-center">
                 <h2 calss="fw-bolder">最新オススメスポット</h2>
             </div>
-            <!-- Rails でTopicsを取得してLOOPさせる。 -->
+            <!-- Topicsを取得してLOOPさせる。 -->
             <div class="row">
             <% @new_topics.each do |new_topic| %>
                 <% if @new_cnt.even? %><div class="col-lg-6"><% end %>
@@ -102,7 +102,7 @@
                     </ul>
                 </div>
             </div>
-            <!-- Categories widget-->
+            <!-- 投稿一覧-->
             <div class="card mb-4">
                 <div class="card-header"><a href="#">自分の投稿一覧</a></div>
                 <div class="card-body">
@@ -145,10 +145,6 @@
 
 
 <script>
-// for (let i = 0; i < topics_rank.length; i++) {
-// // alert(topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude);
-// document.getElementById('debug').textContent += i + "←ID"+ topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude+ "---";
-// }
 
 function initMap(){
     var geocoder
@@ -187,8 +183,8 @@ function initMap(){
                         // infoWindowは吹き出し
                         infoWindow[i] = new google.maps.InfoWindow({
                             // contentで中身を指定
-                            // 今回は文字にリンクを貼り付けた形で表示
-                            content: `<a href='/topics/${id}'>${topics_rank[i].title}</a>`
+                            // 文字にリンクを貼り付けた形で表示
+                            content: `No${i}：<a href='/topics/${id}' class='map_link'>${topics_rank[i].title}</a>`
                         });
                         // markerがクリックされた時、
                         marker[i].addListener("click", function(){
@@ -216,4 +212,4 @@ function initMap(){
 
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>

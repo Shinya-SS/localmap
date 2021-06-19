@@ -23,6 +23,13 @@ class MypagesController < ApplicationController
     # オススメ投稿の２トピックごとに"col-lg-6"クラスを入れるカウント
     @new_cnt = 0
 
+    @env = get_apikey
+  end
+
+  private 
+  def get_apikey
+    ENV['GOOGLE_MAP_API']
+    # ''
   end
 end
 
