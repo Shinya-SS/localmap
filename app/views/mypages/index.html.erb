@@ -3,6 +3,7 @@
         <div class="text-center my-5">
             <h1 class="fw-bolder mypage-header">Welcome to Localmapping!</h1>
             <p class="lead mb-0 pull-right">ようこそ！　<%= current_user.name %>さん</p>
+            <%= hidden_field_tag :my_station, current_user.station %>
         </div>
     </div>
 </header>
@@ -144,30 +145,75 @@
 
 
 <script>
-var map
-var geocoder
-const topics_rank = gon.topics_rank //Controllerで取得したいいねランキングの上位Topics
-
-for (let i = 0; i < topics_rank.length; i++) {
-// alert(topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude);
-document.getElementById('debug').textContent += i + "←ID"+ topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude+ "---";
-}
+// for (let i = 0; i < topics_rank.length; i++) {
+// // alert(topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude);
+// document.getElementById('debug').textContent += i + "←ID"+ topics_rank[i].latitude + "緯度経度" +topics_rank[i].longitude+ "---";
+// }
 
 function initMap(){
+    var geocoder
+    const topics_rank = gon.topics_rank //Controllerで取得したいいねランキングの上位Topics
+    var marker = []; // マーカーを複数表示させたいので、配列化
+    var infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+    var latitude = [];
+    var longitude = [];
+    var mylatlng
+    var my_station = document.getElementById('my_station').value;
+
     geocoder = new google.maps.Geocoder()
 
-    map = new google.maps.Map(document.getElementById('map_mypage'), {
-        center: {lat: 35.681236, lng: 139.767125},
-        zoom: 15,
-    });
+    var map = new google.maps.Map(document.getElementById('map_mypage'));//地図を作成する
 
-    // ドラッグ不可のマーカー
-    marker = new google.maps.Marker({
-        position: {lat: 35.681236, lng: 139.767125},
-        map: map
-    });
-}
+    geo(aftergeo);
+
+    function geo(callback){
+        var cRef = topics_rank.length;
+        // gonで定義したtopics分繰り返し加える処理を行う
+        for (var i = 0; i < topics_rank.length; i++) {
+            // topicsの緯度経度を取得
+            latitude[i] = topics_rank[i]['latitude'];
+            longitude[i] = topics_rank[i]['longitude'];
+
+            (function(i) {
+                geocoder.geocode( { 'address': my_station }, function(results, status) {
+                    if (status == 'OK') {// statusがOKであれば
+                        mylatlng = results[0].geometry.location;
+                        marker[i] = new google.maps.Marker({
+                            position: {lat: latitude[i], lng:longitude[i]},
+                            map: map
+                        });
+                        // 変数iを変数idに代入
+                        let id = topics_rank[i]['id']
+                        // infoWindowは吹き出し
+                        infoWindow[i] = new google.maps.InfoWindow({
+                            // contentで中身を指定
+                            // 今回は文字にリンクを貼り付けた形で表示
+                            content: `<a href='/topics/${id}'>${topics_rank[i].title}</a>`
+                        });
+                        // markerがクリックされた時、
+                        marker[i].addListener("click", function(){
+                            // infoWindowを表示
+                            infoWindow[i].open(map, marker[i]);
+                        });
+                    } else {// 失敗した場合
+                    }//if文の終了。
+                    if (--cRef <= 0) {
+                        callback();//全て取得できたらaftergeo実行
+                    }
+                });////function(results, status)及びgeocoder.geocodeの終了
+            }) (i);
+        } //for文の終了
+    }//function geo終了
+
+    function aftergeo(){
+        var opt = {
+            center: mylatlng,
+            zoom: 14 // 地図のズームを指定
+        };//地図作成のオプションのうちcenterとzoomは必須
+        map.setOptions(opt);//オプションをmapにセット
+    }//function aftergeo終了
+};//function initMap終了
 
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
