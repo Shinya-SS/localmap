@@ -184,13 +184,23 @@
   margin-top: 30px;
   border: 1px solid #e6ecf0;
   border-radius: 3px;
+
+  ul {
+    list-style: none;
+  }
+}
+
+.picture-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 
-//いいねボタンのアニメーション
+
+//いいねボタンのアニメーション（廃止）
 .heart {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   background: url('icons/heart_animation.png') no-repeat;
   background-position: 0 0;
 }
@@ -217,11 +227,42 @@
   animation-timing-function: steps(28);
 }
 
-.favorite-count {
-  display: inline;
-  color: red;
-  font-size: 32px ;
+//投稿明細リンクボタン・いいね部分
+.topic-link-container{
+  display:grid;
+  grid-template-columns: 120px 1fr;
+  
+  .to-show-button{
+    grid-column: 1/2;
+    width: 86px;
+    height: 34px;
+    margin-top: auto;
+  }
+  .favorite-part{
+    grid-column: 2/3;
+  }
+  
+  .favorite-container{
+    display: grid;
+    grid-template-columns: 130px 1fr;
+
+    .favorite-button{
+      grid-column: 1/2;
+    }
+    //いいねボタン
+    .tumbs-blue {
+    color: cornflowerblue;
+    }
+    .favorite-count{
+      grid-column: 2/3;
+      margin-top: auto;
+      font-size: 18px;
+    }
+  }
+
+  
 }
+
 
 
 

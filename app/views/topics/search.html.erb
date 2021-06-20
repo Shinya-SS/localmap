@@ -27,19 +27,35 @@
                             <div class="search-topic" >
                                 <div class="card card-topic">
                                     <div class="card-body">
-                                        <h5 class="card-title card-title-topic"><b>タイトル<%= topic.title %>:ID<%= topic.id %></b></h5>
-                                        <h6 class="card-subtitle my-2 text-muted">
-                                            緯度<%= topic.latitude %>:経度<%= topic.longitude %> ・投稿日:<%= topic.created_at %>
-                                        </h6>
-                                        <p class="card-text"><%= topic.description %></p>
-                                        <div class="topic-picture-sch">
-                                            <% unless topic.picture_1.url.nil? %>
-                                                <%= image_tag topic.picture_1.url, class: "show_image" %>
-                                            <% end %>
+                                        <h5 class="card-title card-title-topic"><b><%= topic.title %></b></h5>
+                                        <div class="picture-container">
+                                            <div class="topic-picture-sch">
+                                                <% unless topic.picture_1.url.nil? %>
+                                                    <%= image_tag topic.picture_1.url, class: "show_image" %>
+                                                <% end %>
+                                            </div>
+                                            <div class="topic-picture-sch">
+                                                <% unless topic.picture_2.url.nil? %>
+                                                    <%= image_tag topic.picture_2.url, class: "show_image" %>
+                                                <% end %>
+                                            </div>
+                                            <div class="topic-picture-sch">
+                                                <% unless topic.picture_3.url.nil? %>
+                                                    <%= image_tag topic.picture_3.url, class: "show_image" %>
+                                                <% end %>
+                                            </div>
                                         </div>
-                                        <div>
-                                        <%= link_to 'Show', topic %>
-                                            <div id="favorite-button-<%= topic.id %>">
+                                        <p class="card-text">投稿者コメント：<%= topic.description %></p>
+                                        <p class="card-text">最寄駅　　　　：<%= topic.station %></p>
+                                        <h5 class="card-subtitle my-2">
+                                            <ul calss="pull-right">
+                                                <li>投稿日：<%= topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></li>
+                                                <li>投稿者：<%= topic.user.name %></li>
+                                            </ul>
+                                        </h6>
+                                        <div class="topic-link-container">
+                                        <a class="btn btn-primary to-show-button" href="/topics/<%= topic.id %>">投稿へ →</a>
+                                            <div class="favorite-container favorite-part" id="favorite-button-<%= topic.id %>">
                                                 <%= render 'favorites/favorite', topic: topic %>
                                             </div>
                                         </div>
