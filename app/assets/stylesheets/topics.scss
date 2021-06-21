@@ -305,26 +305,6 @@
   margin-top:30px;
 }
 
-.favorite-show.favorite-container{
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  margin-bottom: 15px;
-
-  .favorite-button{
-    grid-column: 1/2;
-  }
-  //いいねボタン
-  .tumbs-blue {
-  color: cornflowerblue;
-  }
-  .favorite-count{
-    grid-column: 2/3;
-    margin-top: auto;
-    font-size: 18px;
-  }
-}
-
-
 
 /******************
 * edit アクション

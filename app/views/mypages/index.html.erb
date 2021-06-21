@@ -1,10 +1,7 @@
 <header class=" mypage-wrapper">
     <div class="container">
-        <div class="text-center my-5 ">
-            <div class="mypage-header">
-                <h1 class="fw-bolder">Welcome to Localmapping!</h1>
-                <p class="lead mb-0">まちに身を置き、まちなかを体感しよう</p>
-            </div>
+        <div class="text-center my-5">
+            <h1 class="fw-bolder mypage-header">Welcome to Localmapping!</h1>
             <p class="lead mb-0 pull-right">ようこそ！　<%= current_user.name %>さん</p>
             <%= hidden_field_tag :my_station, current_user.station %>
         </div>
@@ -20,6 +17,7 @@
                 <div class="card-body">
                     <h2 class="card-title ranking-title">人気ランキング</h2>
                 </div>
+                <!--<img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />-->
                 <div class="card-img-top card-ranking-map" id='map_mypage'></div>
                 <ul class="list-group list-group-flush list-spot-ranking">
                     <% cnt = 1 %>
