@@ -7,12 +7,12 @@
                     <div class="card-img-top" id="map_show"></div>
                     <div class="card-body">
                         <h2 class="card-title card-title-topic">タイトル：<%= @topic.title %></h5>
-                        <h4 class="card-text">最寄駅：<%= @topic.station %></h4>
-                        <p class="card-text">投稿者コメント：<%= @topic.description %></p>
-                        <p class="card-text">投稿日時：<%= @topic.created_at %></p>
+                        <h4 class="card-text">最寄駅　　　　：<%= @topic.station %></h4>
+                        <p class="card-text"> 投稿者コメント：<%= @topic.description %></p>
+                        <p class="card-text"> 投稿日時　　　：<%= @topic.created_at %></p>
                     </div>
                     <!-- 表示確認用 -->
-                    <strong>確認用</strong>　緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>
+                    <!--<strong>確認用</strong>　緯度：<%= @topic.latitude %>  経度：<%= @topic.longitude %>-->
                     <!-- ここまで -->
                     <div class="card-body">
                     <% unless @topic.picture_1.url.nil? %>
@@ -31,9 +31,13 @@
                         <% end %>
                     <% end %>
                     </div>
-                    <div class="heart"></div>
+                    <div class="favorite-container favorite-part favorite-show" id="favorite-button-<%= @topic.id %>">
+                        <%= render 'favorites/favorite', topic: @topic %>
+                    </div>
                     <% if @topic.user_id == current_user.id %>
-                        <%= link_to '投稿の編集', edit_topic_path(@topic.id) %>
+                        <div class="mysubmit-edit">
+                            <a class="btn btn-success" href="/topics/<%= @topic.id %>/edit">編集 →</a>
+                        </div>
                     <% end %>
                     <ul class="list-group list-group-flush">
                     <h3>コメント</h3>
@@ -78,19 +82,6 @@ function initMap(){
         map: map
     });
 }
-
-$('.heart').on('click', function() {
-    let $btn = $(this);
-    // Likeアイコンがonクラス持っていたら
-    if ($btn.hasClass('on')) {
-        $btn.removeClass('on');
-        $btn.removeClass("HeartAnimation");
-    //   $btn.css("background-position","left");
-    } else {
-        $btn.addClass('on');
-        $btn.addClass("HeartAnimation");
-    }
-});
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
