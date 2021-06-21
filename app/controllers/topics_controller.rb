@@ -75,8 +75,9 @@ class TopicsController < ApplicationController
   end
 
   def get_apikey
-    # ENV['GOOGLE_MAP_API']
+    ENV['GOOGLE_MAP_API']
     # ''
+    #ts
   end
 
 end

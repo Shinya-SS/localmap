@@ -28,7 +28,7 @@ class MypagesController < ApplicationController
 
   private 
   def get_apikey
-    # ENV['GOOGLE_MAP_API']
+    ENV['GOOGLE_MAP_API']
     # ''
   end
 end
