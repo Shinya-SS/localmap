@@ -35,8 +35,16 @@
                         <%= render 'favorites/favorite', topic: @topic %>
                     </div>
                     <% if @topic.user_id == current_user.id %>
-                        <div class="mysubmit-edit">
-                            <a class="btn btn-success" href="/topics/<%= @topic.id %>/edit">編集 →</a>
+                        <div class="mysubmit-container">
+                            <div class="mysubmit-edit">
+                                <a class="btn btn-success" href="/topics/<%= @topic.id %>/edit">編集 →</a>
+                            </div>
+                            <div class="mysubmit-destroy">
+                                <%= link_to @topic, method: :delete, data: { confirm: '削除してもよろしいですか?' }, class: 'btn btn-danger' do %>
+                                    削除 <i class="fas fa-trash"></i>
+                                <% end %>
+                                <!--<%= link_to 'Destroy', @topic, method: :delete, data: { confirm: '削除してもよろしいですか?' } %>-->
+                            </div>
                         </div>
                     <% end %>
                     <ul class="list-group list-group-flush">

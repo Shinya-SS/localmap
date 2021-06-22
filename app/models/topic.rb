@@ -6,8 +6,8 @@ class Topic < ApplicationRecord
     validates :longitude, presence: true
 
     belongs_to :user
-    has_many :favorites
-    has_many :comments
+    has_many :favorites, dependent: :destroy
+    has_many :comments, dependent: :destroy
     
     mount_uploader :picture_1, ImageUploader
     mount_uploader :picture_2, ImageUploader

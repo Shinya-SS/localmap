@@ -321,7 +321,21 @@
     grid-column: 2/3;
     margin-top: auto;
     font-size: 18px;
+
+    .mysubmit-edit{
+      grid-column: 1/2;
+    }
+    .mysubmit-destroy{
+      grid-column: 2/3;
+    }
+
   }
+}
+
+.mysubmit-container{
+  display: grid;
+  grid-template-columns: 100px 100px;
+
 }
 
 

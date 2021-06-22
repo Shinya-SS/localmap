@@ -59,7 +59,11 @@
             <% @new_topics.each do |new_topic| %>
                 <% if @new_cnt.even? %><div class="col-lg-6"><% end %>
                     <div class="card mb-4">
-                        <% unless new_topic.picture_1.url.nil? %>
+                        <% if new_topic.picture_1.url.nil? %>
+                            <div class="new_img_field">
+                                <i class="fas fa-images"></i>
+                            </div>
+                        <% else %>
                             <%= image_tag new_topic.picture_1.url, class: "new-topic-picture" %>
                         <% end %>
                         <div class="card-body">

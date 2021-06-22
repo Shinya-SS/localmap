@@ -91,7 +91,6 @@ $(function(){
     $fileField = $('#form-picture1')
 
     $($fileField).on('change', $fileField, function(e) {
-        alert("gazo!");
         file = e.target.files[0]
         reader = new FileReader(),
         $preview = $('#img_field1');
