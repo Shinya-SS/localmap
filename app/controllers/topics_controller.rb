@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
 
-  before_action :set_topic, only: [:edit, :update]
+  before_action :set_topic, only: [:edit, :update, :destroy]
 
   def new
     @topic = Topic.new
@@ -56,6 +56,14 @@ class TopicsController < ApplicationController
           render :edit}
         format.json { render json: @topic.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @topic.destroy
+    respond_to do |format|
+      format.html{ redirect_to mypages_index_path , success: '削除に成功しました' }
+      format.json{ head :no_content }
     end
   end
 
