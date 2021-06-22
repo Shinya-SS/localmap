@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
 
   before_action :set_topic, only: [:edit, :update, :destroy]
+  before_action :login_chk, only: [:new, :create, :edit, :update]
 
   def new
     @topic = Topic.new
