@@ -21,6 +21,8 @@
                     </form>
                 </div>
 
+                <div id='map'></div>
+
                 <div class="topic-contents">
                     <% unless @topics.nil? %>
                         <% @topics.each do |topic| %>
@@ -67,99 +69,142 @@
                         <% end %>
                     <% end %>
                 </div>
-
-                <input type="button" value="クリック" onclick="map_click()">
-                <div id='map'></div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-var map
-var geocoder
-let marker = [] //マーカーは上位５件を表示
-let infoWindow = [] //吹き出しも上位５件表示
-const topics = gon.topics //controllerから検索結果のtopicsを取得
+
+
 
 function initMap(){
-  geocoder = new google.maps.Geocoder()
+    var geocoder
+    const topics = gon.topics //controllerから検索結果のtopicsを取得（上位５件に絞っている。）
+    let marker = []; //マーカーは上位５件を表示
+    let infoWindow = []; //吹き出しも上位５件表示
+    var latitude = [];
+    var longitude = [];
+    const my_station = gon.station
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.728860, lng:139.711814},
-    zoom: 16,
-  });
-
-  // ドラッグ可能なマーカー
-  marker = new google.maps.Marker({
-    position: {lat: 35.728860, lng:139.711814},
-    map: map,
-    draggable: true
-  });
-
-             // infoWindowは吹き出し
-            infoWindow = new google.maps.InfoWindow({
-            // contentで中身を指定
-            // 今回は文字にリンクを貼り付けた形で表示
-            content: `<a href='/pages/index'>リンクです！</a>`
-            });
-            // markerがクリックされた時、
-            marker.addListener("click", function(){
-                // infoWindowを表示
-                infoWindow.open(map, marker);
-            });
-}
-
-function map_click(){
-    // geocoderを初期化
     geocoder = new google.maps.Geocoder()
+
+    var map = new google.maps.Map(document.getElementById('map'));//地図を作成する
+
+    geo(aftergeo);
+
+    function geo(callback){
+        var cRef = topics.length;
+        // gonで定義したtopics分繰り返し加える処理を行う
+        for (var i = 0; i < topics.length; i++) {
+            // topicsの緯度経度を取得
+            latitude[i] = topics[i]['latitude'];
+            longitude[i] = topics[i]['longitude'];
+
+            (function(i) {
+                geocoder.geocode( { 'address': my_station }, function(results, status) {
+                    if (status == 'OK') {// statusがOKであれば
+                        mylatlng = results[0].geometry.location;
+                        marker[i] = new google.maps.Marker({
+                            position: {lat: latitude[i], lng:longitude[i]},
+                            map: map
+                        });
+                        // 変数iを変数idに代入
+                        let id = topics[i]['id']
+                        let No = i + 1
+                        // infoWindowは吹き出し
+                        infoWindow[i] = new google.maps.InfoWindow({
+                            // contentで中身を指定
+                            // 文字にリンクを貼り付けた形で表示
+                            content: `No${No}：<a href='/topics/${id}' class='map_link'>${topics[i].title}</a>`
+                        });
+                        // markerがクリックされた時、
+                        marker[i].addListener("click", function(){
+                            // infoWindowを表示
+                            infoWindow[i].open(map, marker[i]);
+                        });
+                    } else {// 失敗した場合
+                    }//if文の終了。
+                    if (--cRef <= 0) {
+                        callback();//全て取得できたらaftergeo実行
+                    }
+                });////function(results, status)及びgeocoder.geocodeの終了
+            }) (i);
+        } //for文の終了
+    }//function geo終了
+
+    function aftergeo(){
+        var opt = {
+            center: mylatlng,
+            zoom: 16 // 地図のズームを指定
+        };//地図作成のオプションのうちcenterとzoomは必須
+        map.setOptions(opt);//オプションをmapにセット
+    }//function aftergeo終了
+};//function initMap終了
+
+
+
+
+
+// function initMap(){
+//     geocoder = new google.maps.Geocoder()
+
+//     map = new google.maps.Map(document.getElementById('map'), {
+//         center: {lat: 35.728860, lng:139.711814},
+//         zoom: 16,
+//     });
+
+// }
+
+// function map_click(){
+//     // geocoderを初期化
+//     geocoder = new google.maps.Geocoder()
     
-    // mapの初期位置設定
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.729503, lng:139.7109},
-    zoom: 16,
-  });
+//     // mapの初期位置設定
+//     map = new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: 35.729503, lng:139.7109},
+//     zoom: 16,
+// });
 
-    // forは繰り返し処理
-    // 変数iを0と定義し、
-    // その後gonで定義したtopics分繰り返し加える処理を行う(上限５回)
-    for (let i = 0; i < topics.length; i++) {
-        // geocoderで addressの経緯緯度取得
-        // users[i]は変数iのユーザーを取得している
-          alert(topics[i].station);
-        geocoder.geocode( { 'address': topics[i].station }, function(results, status) {
-            // statusがOKであれば
-        if (status == 'OK') {
-    　　　　// map.setCenterで地図が移動
-            map.setCenter(results[0].geometry.location);
-            marker[i] = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-            // 変数iを変数idに代入
-            let id = topics[i]['id']
-            // infoWindowは吹き出し
-            infoWindow[i] = new google.maps.InfoWindow({
-            // contentで中身を指定
-            // 今回は文字にリンクを貼り付けた形で表示
-            content: `<a href='/mypages/index'>${topics[i].title}</a>`
-            });
-            // markerがクリックされた時、
-            marker[i].addListener("click", function(){
-                // infoWindowを表示
-                infoWindow[i].open(map, marker[i]);
-            });
-        } else {
-            // alert('Geocode was not successful for the following reason: ' + status);
-        }
-        });
-    }
-// var latitude = document.getElementById('topic_latitude').value
-// var longitude = document.getElementById('topic_longitude').value
-// //    map.panTo(new google.maps.LatLng(35.680865,139.767036));
-// map.panTo(new google.maps.LatLng(latitude,longitude));
-
-}
+//     // forは繰り返し処理
+//     // 変数iを0と定義し、
+//     // その後gonで定義したtopics分繰り返し加える処理を行う(上限５回)
+//     for (let i = 0; i < topics.length; i++) {
+//         // geocoderで addressの経緯緯度取得
+//         // users[i]は変数iのユーザーを取得している
+//         alert(topics[i].station);
+//         geocoder.geocode( { 'address': topics[i].station }, function(results, status) {
+//             // statusがOKであれば
+//         if (status == 'OK') {
+//     　　　　// map.setCenterで地図が移動
+//             map.setCenter(results[0].geometry.location);
+//             marker[i] = new google.maps.Marker({
+//                 map: map,
+//                 position: results[0].geometry.location
+//             });
+//             // 変数iを変数idに代入
+//             let id = topics[i]['id']
+//             // infoWindowは吹き出し
+//             infoWindow[i] = new google.maps.InfoWindow({
+//             // contentで中身を指定
+//             // 今回は文字にリンクを貼り付けた形で表示
+//             content: `<a href='/mypages/index'>${topics[i].title}</a>`
+//             });
+//             // markerがクリックされた時、
+//             marker[i].addListener("click", function(){
+//                 // infoWindowを表示
+//                 infoWindow[i].open(map, marker[i]);
+//             });
+//         } else {
+//             // alert('Geocode was not successful for the following reason: ' + status);
+//         }
+//         });
+//     }
+// // var latitude = document.getElementById('topic_latitude').value
+// // var longitude = document.getElementById('topic_longitude').value
+// // //    map.panTo(new google.maps.LatLng(35.680865,139.767036));
+// // map.panTo(new google.maps.LatLng(latitude,longitude));
+// }
 
 </script>
 

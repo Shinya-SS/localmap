@@ -28,4 +28,9 @@ class ApplicationController < ActionController::Base
         end
     end
     
+    private 
+    def get_apikey
+        ENV['GOOGLE_MAP_API']
+        # ''
+    end
 end

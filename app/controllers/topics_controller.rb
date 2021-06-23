@@ -29,8 +29,19 @@ class TopicsController < ApplicationController
 
   def search
     @env = get_apikey
-    @topics = Topic.search(params[:search])
-    gon.topics = @topics
+
+    #初回表示なら
+    if params[:search].nil?
+      search_station = current_user.station
+    else
+      search_station = params[:search]
+    end
+    @topics = Topic.search(search_station)
+    #検索結果の上位５件
+    gon.topics = @topics.limit(5)
+    #初期表示：ログインユーザの最寄駅/検索：検索した駅名
+    gon.station = search_station
+
   end
 
   def show
@@ -81,11 +92,6 @@ class TopicsController < ApplicationController
 
   def set_topic
     @topic = Topic.find(params[:id])
-  end
-
-  def get_apikey
-    # ENV['GOOGLE_MAP_API']
-    # ''
   end
 
 end
