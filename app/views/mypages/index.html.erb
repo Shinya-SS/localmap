@@ -140,10 +140,12 @@
                 </div>
             </div>
             <!-- ユーザ情報 -->
+            <!--TODO:ユーザ情報ページ、ユーザ情報編集機能
             <div class="card mb-4">
                 <div class="card-header">Side Widget</div>
                 <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
             </div>
+            -->
         </div>
     </div>
 </div>
@@ -186,11 +188,12 @@ function initMap(){
                         });
                         // 変数iを変数idに代入
                         let id = topics_rank[i]['id']
+                        let No = i + 1;
                         // infoWindowは吹き出し
                         infoWindow[i] = new google.maps.InfoWindow({
                             // contentで中身を指定
                             // 文字にリンクを貼り付けた形で表示
-                            content: `No${i}：<a href='/topics/${id}' class='map_link'>${topics_rank[i].title}</a>`
+                            content: `No${No}：<a href='/topics/${id}' class='map_link'>${topics_rank[i].title}</a>`
                         });
                         // markerがクリックされた時、
                         marker[i].addListener("click", function(){

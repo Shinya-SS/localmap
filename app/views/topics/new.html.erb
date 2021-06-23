@@ -18,11 +18,11 @@
                   <!--<div id="display">何かが表示される、、、、！</div>
                   <div id="target_latitude">いど！</div>
                   <div id="target_longitude">けいど！  APIキー＝<%= @env %></div>-->
-                  <input type="hidden" name="topic[latitude]" value="35.72871894239424">
-                  <input type="hidden" name="topic[longitude]" value="139.71208027196656">
+                  <!--<input type="hidden" name="topic[latitude]" value="35.72871894239424">
+                  <input type="hidden" name="topic[longitude]" value="139.71208027196656">-->
                   <!-- ここまで -->
-                <!--<%= f.hidden_field :latitude %>
-                <%= f.hidden_field :longitude %>-->
+                <%= f.hidden_field :latitude %>
+                <%= f.hidden_field :longitude %>
 
         <div id='map'></div>
 
@@ -88,12 +88,10 @@
 
 
 <script>
-var map
-var geocoder
-
-const display = document.getElementById('display')
-var marker;
-
+  var map
+  var geocoder
+  // const display = document.getElementById('display')
+  var marker;
 function initMap(){
     geocoder = new google.maps.Geocoder()
 
@@ -114,17 +112,54 @@ function initMap(){
         document.getElementById('topic_latitude').value  = e.latLng.lat(),
         document.getElementById('topic_longitude').value = e.latLng.lng()
     });
+}
 
-// infoWindowは吹き出し
-    infoWindow = new google.maps.InfoWindow({
-    // contentで中身を指定
-    // 今回は文字にリンクを貼り付けた形で表示
-    content: `<a href='/pages/index'>リンクです！</a>`
+
+function codeAddress(){
+    let inputAddress = document.getElementById('stasion_name').value;
+
+//入力値に""駅"が含まれなければ
+    if (inputAddress.indexOf('駅') == -1) {
+        inputAddress = inputAddress + '駅';
+        document.getElementById('stasion_name').value = inputAddress;
+    }
+
+    marker.setMap(null);
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+        if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                draggable: true
+        });
+        //display.textContent = "検索結果：" + results[ 0 ].geometry.location
+        var location = results[0].geometry.location;
+        //DB登録用hidden項目にセット
+        // document.getElementById('target_latitude').textContent = location.lat();
+        // document.getElementById('target_longitude').textContent = location.lng();
+        document.getElementById('topic_latitude').value = location.lat();
+        document.getElementById('topic_longitude').value = location.lng();
+        } else {
+            alert('該当する結果がありませんでした：' + status);
+        }
+        //マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener(marker, 'dragend', function(e) {
+        //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+        // document.getElementById('target_latitude').textContent = e.latLng.lat(),
+        // document.getElementById('target_longitude').textContent = e.latLng.lng()
+        document.getElementById('topic_latitude').value = e.latLng.lat(),
+        document.getElementById('topic_longitude').value = e.latLng.lng()
+        });
     });
-    // markerがクリックされた時、
-    marker.addListener("click", function(){
-        // infoWindowを表示
-        infoWindow.open(map, marker);
+
+    //マーカーのドロップ（ドラッグ終了）時のイベント
+    google.maps.event.addListener(marker, 'dragend', function(e) {
+        //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+        // document.getElementById('target_latitude').textContent = e.latLng.lat(),
+        // document.getElementById('target_longitude').textContent = e.latLng.lng()
+        document.getElementById('topic_latitude').value = e.latLng.lat(),
+        document.getElementById('topic_longitude').value = e.latLng.lng()
     });
 }
 

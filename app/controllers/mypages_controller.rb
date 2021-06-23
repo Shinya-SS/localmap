@@ -26,12 +26,9 @@ class MypagesController < ApplicationController
     @env = get_apikey
   end
 
-  private 
-  def get_apikey
-    # ENV['GOOGLE_MAP_API']
-    # ''
-  end
+  # def test_update
+  #   sql = "UPDATE stations SET name = CONCAT(name,'駅')"
+  #   ActiveRecord::Base.connection.execute(sql)
+  # end
+
 end
-
-
-
