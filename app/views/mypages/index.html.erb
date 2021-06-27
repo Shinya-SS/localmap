@@ -82,7 +82,15 @@
         <div class="col-lg-4">
             <!-- Myスポット -->
             <div class="card mb-4">
-                <div class="card-header"><a href="#">Myスポット</a></div>
+                <div class="card-header">
+                    <% if logged_in? %>
+                        <%= link_to mypages_myspot_path do %>
+                            Myスポット
+                        <% end %>
+                    <% else %>
+                        <a href="#">Myスポット</a>
+                    <% end %>
+                </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <% @topics.each do |topic| %>

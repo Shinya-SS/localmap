@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   post '/favorites', to: 'favorites#create' 
   post '/favorites/delete', to: 'favorites#delete'
 
+  get 'mypages/myspot'
+
   # get 'mypages/test_update'
 
   # post '/comments', to: 'comments#create'
