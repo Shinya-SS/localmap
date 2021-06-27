@@ -1,0 +1,31 @@
+<div class="container mypage-container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+            <div class="myspotpage-container">
+                <!-- Topicsを取得してLOOPさせる。 -->
+                <div class="row">
+                <% mytopics.each do |mytopic| %>
+                    <% if @topic_cnt.even? %><div class="col-lg-6"><% end %>
+                        <div class="card mb-4 myspot-card">
+                            <% if mytopic.picture_1.url.nil? %>
+                                <div class="new_img_field">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                            <% else %>
+                                <%= image_tag mytopic.picture_1.url, class: "new-topic-picture" %>
+                            <% end %>
+                            <div class="card-body">
+                                <div class="small text-muted"><strong>投稿日：</strong><%= mytopic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                <h2 class="card-title h4"><%= mytopic.title %></h2>
+                                <p class="card-text"><%= mytopic.description %></p>
+                                <a class="btn btn-primary" href="/topics/<%= mytopic.id %>">投稿へ →</a>
+                            </div>
+                        </div>
+                    <% if @topic_cnt.odd? %></div><% end %>
+                    <% @topic_cnt += 1 %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

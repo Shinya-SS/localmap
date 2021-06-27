@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post '/favorites/delete', to: 'favorites#delete'
 
   get 'mypages/myspot'
+  get 'mypages/mypost'
 
   # get 'mypages/test_update'
 
