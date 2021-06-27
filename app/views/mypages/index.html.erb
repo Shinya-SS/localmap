@@ -118,7 +118,15 @@
             </div>
             <!-- 投稿一覧-->
             <div class="card mb-4">
-                <div class="card-header"><a href="#">自分の投稿一覧</a></div>
+                <div class="card-header">
+                    <% if logged_in? %>
+                        <%= link_to mypages_mypost_path do %>
+                            自分の投稿一覧
+                        <% end %>
+                    <% else %>
+                        <a href="#">自分の投稿一覧</a>
+                    <% end %>
+                </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <% @my_topics.each do |topic| %>
