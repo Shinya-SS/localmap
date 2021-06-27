@@ -26,6 +26,11 @@ class MypagesController < ApplicationController
     @env = get_apikey
   end
 
+  def myspot
+    @favorite_topics = current_user.favorite_topics
+    # ２トピックごとに"col-lg-6"クラスを入れるカウント
+    @topic_cnt = 0
+  end
   # def test_update
   #   sql = "UPDATE stations SET name = CONCAT(name,'駅')"
   #   ActiveRecord::Base.connection.execute(sql)
