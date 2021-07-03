@@ -1,24 +1,61 @@
-# README
+# Local Mapping
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**画像はる**
+**本番デプロイしてURL貼る**
 
-Things you may want to cover:
+- [Local Mapping](#local-mapping)
+  - [概要](#概要)
+  - [開発環境](#開発環境)
+  - [機能一覧](#機能一覧)
+  - [開発経緯](#開発経緯)
+  - [使い方](#使い方)
+## 概要
+***
 
-* Ruby version
+自分のお気に入りのスポットをインターネットで投稿し、共有するWebサイトです。
 
-* System dependencies
+GoogleMap を使用し、地図にピンを挿入しているため、視覚的にスポットを巡ることができます。
+投稿の際も地図にスポットを投稿できます。
 
-* Configuration
+お気に入り数ランキングを表示する機能を実装しているので、人気があるスポット巡りをする、ということも可能です。
 
-* Database creation
+## 開発環境
+***
+* Ruby 2.5.3
+* Ruby on Rails 5.2.2
+* mySQL
+* Google Maps API
+* Docker
+* AdobeXD
 
-* Database initialization
+### 開発管理
+* GitHub
 
-* How to run the test suite
+### 開発エディタ
+* VisualStudio Code
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## 機能一覧
+***
+* ログイン機能(ユーザ登録機能)
+* 投稿機能
+  * 画像投稿(carrierwave)
+  * 位置情報機能(geocorder)
+  * 投稿編集
+  * 投稿削除
+* いいね機能(Ajax)
+* コメント投稿機能(Ajax)
+* いいね数ランキング表示機能
+* オートコンプリート機能
 
-* ...
+## 開発経緯
+***
+いわゆる名所というものはネットで検索するとたくさん情報を入手できます。
+
+しかし、自分が住んでいる地域のようなローカルスポットはあまり情報がなく、これをインターネットで誰でも投稿し・共有できたら便利だなと思い作成しました。
+
+## 使い方
+***
+
+あああ
+未完成
