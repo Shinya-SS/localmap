@@ -23,7 +23,7 @@ STATION_CSVROW_LAT = 10
 # 駅CSVを読み込みテーブルに保存
 CSV.foreach(STATION_PATH) do |row|
     station_id = row[STATION_CSVROW_STATION_ID]
-    name = row[STATION_CSVROW_NAME]
+    name = row[STATION_CSVROW_NAME] + "駅"
     line_id = row[STATION_CSVROW_LINE_ID]
     address = row[STATION_CSVROW_ADDRESS]
     lng = row[STATION_CSVROW_LNG]
@@ -38,3 +38,16 @@ CSV.foreach(STATION_PATH) do |row|
         :lng => lng
     )
 end
+
+User.create do |u|
+    u.id = 0
+    u.userid = 999
+    u.name = 'ゲスト'
+    u.email = 'dummy@dummy.com'
+    u.station = '東京駅'
+    u.password = 'dummy999'
+    u.password_confirmation = 'dummy999'
+end
+
+
+

@@ -28,8 +28,6 @@
 
 /src*
 
-/db/data
-
 /vendor/bundle
 
 /public/uploads
