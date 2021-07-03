@@ -9,7 +9,7 @@
 require 'csv'
 
 # 駅CSVファイルパス
-STATION_PATH = "db/data/stations_tokyo.csv"
+STATION_PATH = "db/data/stations_tokyo_1.csv"
 
  
 # 駅カラム指定定数
