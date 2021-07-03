@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_075733) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "stations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "station_id", null: false
     t.integer "line_id"
     t.string "name"
