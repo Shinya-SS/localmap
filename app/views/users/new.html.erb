@@ -56,5 +56,14 @@
     function () {
         $(this).children('.tip').fadeOut('fast');
     });
+
+    //入力値に"駅"が含まれなければ追加する。
+    document.getElementById('new_user').onsubmit = function() {
+      let inputAddress = document.getElementById('stasion_name').value;
+      if (inputAddress.indexOf('駅') == -1) {
+        inputAddress = inputAddress + '駅';
+        document.getElementById('stasion_name').value = inputAddress;
+      }
+    }
   });
   </script>
