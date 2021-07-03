@@ -1,6 +1,6 @@
 class CreateStations < ActiveRecord::Migration[5.2]
   def change
-    create_table :stations, id: false, options: 'ENGINE=InnoDB COLLATE=utf8_general_ci' do |t|
+    create_table :stations, id: false do |t|
       t.integer :station_id, null: false, unique: true
       t.integer :line_id
       t.string :name
