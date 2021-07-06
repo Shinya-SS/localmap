@@ -33,15 +33,18 @@ CSV.foreach(STATION_PATH) do |row|
     )
 end
 
-User.create do |u|
-    u.id = 0
-    u.userid = 999
-    u.name = 'ゲスト'
-    u.email = 'dummy@dummy.com'
-    u.station = '東京駅'
-    u.password = 'dummy999'
-    u.password_confirmation = 'dummy999'
-end
+
+
+# 初回データ設定の時のみ使用
+# User.create do |u|
+#     u.id = 0
+#     u.userid = 999
+#     u.name = 'ゲスト'
+#     u.email = 'dummy@dummy.com'
+#     u.station = '東京駅'
+#     u.password = 'dummy999'
+#     u.password_confirmation = 'dummy999'
+# end
 
 
 
