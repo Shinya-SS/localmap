@@ -1,14 +1,26 @@
 # Local Mapping
 
 **画像はる**
-**本番デプロイしてURL貼る**
+
 
 - [Local Mapping](#local-mapping)
+  - [URL](#url)
   - [概要](#概要)
   - [開発環境](#開発環境)
   - [機能一覧](#機能一覧)
   - [開発経緯](#開発経緯)
   - [使い方](#使い方)
+
+***
+
+## URL
+  **https://local-mappings.herokuapp.com/**
+
+  BASIC認証を設定しております。
+  - ユーザ名：　　LocalMap4482
+  - パスワード：　Mapping9654
+
+
 ## 概要
 ***
 
