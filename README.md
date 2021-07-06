@@ -1,7 +1,6 @@
 # Local Mapping
 
-**画像はる**
-
+<img width="1430" alt="スクリーンショット 2021-07-06 20 27 17" src="https://user-images.githubusercontent.com/82698260/124592647-a46e0100-de98-11eb-92fb-ebdd032c4021.png">
 
 - [Local Mapping](#local-mapping)
   - [URL](#url)
@@ -46,6 +45,11 @@ GoogleMap を使用し、地図にピンを挿入しているため、視覚的�
 ### 開発エディタ
 * VisualStudio Code
 
+### 本番環境
+* heroku
+* AWS s3
+* BASIC認証
+
 
 ## 機能一覧
 ***
@@ -69,5 +73,24 @@ GoogleMap を使用し、地図にピンを挿入しているため、視覚的�
 ## 使い方
 ***
 
-あああ
-未完成
+
+**1.メインページ**
+
+<img width="1432" alt="スクリーンショット 2021-07-06 20 32 54" src="https://user-images.githubusercontent.com/82698260/124593256-61605d80-de99-11eb-8595-418846da5f12.png">
+
+いいねランキングが表示されます。  
+ゲストユーザとしてユーザ情報の登録をせず利用することもできます。  
+※スポットの投稿・コメント投稿・いいね機能は使用できません。
+
+
+**2.投稿ページ**
+<img width="1432" alt="スクリーンショット 2021-07-06 20 38 25" src="https://user-images.githubusercontent.com/82698260/124593973-375b6b00-de9a-11eb-8729-2eec358184c5.png">
+ピンを設定し、スポットの投稿ができます。  
+位置情報取得の許可を設定いただければ、現在地にピンを設定して投稿できます。
+
+
+**3.投稿明細画面**
+<img width="1404" alt="スクリーンショット 2021-07-06 20 42 24" src="https://user-images.githubusercontent.com/82698260/124594391-b51f7680-de9a-11eb-88ea-08a6e7f5f79a.png">
+いいね・コメント投稿ができます。  
+(Ajaxで設計しているため再読み込みを伴わずご利用できます。)  
+スポットの投稿者の場合、編集・削除が可能です。
