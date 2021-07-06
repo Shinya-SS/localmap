@@ -74,7 +74,7 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
     respond_to do |format|
-      format.html{ redirect_to _path , success: '削除に成功しました' }
+      format.html{ redirect_to mypages_index_path , success: '削除に成功しました' }
       format.json{ head :no_content }
     end
   end

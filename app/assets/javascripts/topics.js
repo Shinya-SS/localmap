@@ -135,7 +135,7 @@ function del_img(number,pages) {
     }
     preview.parentNode.removeChild(preview);
     var img_field_element = document.getElementById('img_field' + number);
-    const img_f = document.createElement('i');
+    var img_f = document.createElement('i');
     img_f.classList.add('fas','fa-images');
     img_field_element.appendChild(img_f);
     var pic = document.getElementById('form-picture' + number);

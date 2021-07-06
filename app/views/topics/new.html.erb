@@ -14,6 +14,8 @@
                   <%= f.text_field :station, class: 'form-control',id: 'stasion_name' %>
                   <input type="button" value="検索" id="btn-station" onclick="codeAddress()">
                 </div>
+                <p><input type="button" value="現在位置を設定" onclick="getMyPlace()"></p>
+                <div id="result"></div>
                   <!-- デバッグ用緯度経度　確認-->
                   <!--<div id="display">何かが表示される、、、、！</div>
                   <div id="target_latitude">いど！</div>
@@ -162,6 +164,46 @@ function codeAddress(){
         document.getElementById('topic_longitude').value = e.latLng.lng()
     });
 }
+
+//現在位置取得
+function getMyPlace() {
+  var output = document.getElementById("result");
+  if (!navigator.geolocation){//Geolocation apiがサポートされていない場合
+    alert("あなたのブラウザーでサポートされておりません");
+    return;
+  }
+  function success(position) {
+    var latitude  = position.coords.latitude;//緯度
+    var longitude = position.coords.longitude;//経度
+
+    //緯度経度を設定
+    document.getElementById('topic_latitude').value = latitude;
+    document.getElementById('topic_longitude').value = longitude;
+    // 位置情報
+    var latlng = new google.maps.LatLng( latitude , longitude );
+
+    marker.setMap(null);
+    map.setCenter(latlng);
+    marker = new google.maps.Marker({
+      map: map,
+      position: latlng,
+      draggable: true
+    });
+
+    //マーカーのドロップ（ドラッグ終了）時のイベント
+    google.maps.event.addListener(marker, 'dragend', function(e) {
+    //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
+    document.getElementById('topic_latitude').value = e.latLng.lat(),
+    document.getElementById('topic_longitude').value = e.latLng.lng()
+    });
+  };
+  function error() {
+    //エラーの場合
+    alert("座標位置を取得できません");
+  };
+  navigator.geolocation.getCurrentPosition(success, error);//成功と失敗を判断
+}
+
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= @env %>&callback=initMap" async defer></script>
