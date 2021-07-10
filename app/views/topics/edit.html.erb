@@ -97,18 +97,21 @@ var map
 var geocoder
 
 var marker;
+const lat = Number(document.getElementById('topic_latitude').value);
+const lng = Number(document.getElementById('topic_longitude').value);
 
 function initMap(){
+
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.681236, lng: 139.767125},
+        center: {lat: lat, lng: lng},
         zoom: 16,
     });
 
 // ドラッグ可能なマーカー
     marker = new google.maps.Marker({
-        position:  {lat: 35.681236, lng: 139.767125},
+        position:  {lat: lat, lng: lng},
         map: map,
         draggable: true
     });
