@@ -56,6 +56,7 @@ class TopicsController < ApplicationController
   end
 
   def edit
+    @env = get_apikey
   end
 
   def update

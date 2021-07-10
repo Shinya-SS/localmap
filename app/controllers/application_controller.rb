@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
     before_action :current_user
 
-    http_basic_authenticate_with :name => ENV["BASIC_AUTH_NAME"], :password => ENV["BASIC_AUTH_PW"] if Rails.env.production?
+    # http_basic_authenticate_with :name => ENV["BASIC_AUTH_NAME"], :password => ENV["BASIC_AUTH_PW"] if Rails.env.production?
 
     def current_user
         #非ログインユーザの場合ダミーユーザとして機能させる
