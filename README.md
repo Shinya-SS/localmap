@@ -15,6 +15,7 @@
 ## URL
   **https://local-mappings.herokuapp.com/**
 
+一時的にBASIC認証は取り消しています。
   BASIC認証を設定しております。
   - ユーザ名：　　LocalMap4482
   - パスワード：　Mapping9654
