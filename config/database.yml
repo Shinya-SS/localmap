@@ -55,7 +55,7 @@ test:
 
 production:
   <<: *default
-  database: 
+  database: WalkDB
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
