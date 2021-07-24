@@ -81,8 +81,14 @@ group :test do
 end
 
 # この3行を追加
+# heroku上の場合postgres
+# group :production do
+#   gem 'pg'
+# end
+
+# AWS対応
 group :production do
-  gem 'pg'
+  gem 'unicorn', '5.4.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
