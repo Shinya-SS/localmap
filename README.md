@@ -13,10 +13,14 @@
 ***
 
 ## URL
-  **https://local-mappings.herokuapp.com/**
+  - AWS環境  
+  **http://52.198.131.85/**
 
-一時的にBASIC認証は取り消しています。
-  BASIC認証を設定しております。
+  - heroku環境  
+  ~~**https://local-mappings.herokuapp.com/**~~
+
+**一時的にBASIC認証は取り消しています。**  
+  ~~BASIC認証を設定しております。~~
   - ユーザ名：　　LocalMap4482
   - パスワード：　Mapping9654
 
@@ -46,10 +50,16 @@ GoogleMap を使用し、地図にピンを挿入しているため、視覚的�
 ### 開発エディタ
 * VisualStudio Code
 
-### 本番環境
+### 本番環境①
+* AWS
+* Nginx
+* Unicorn
+
+### 本番環境②
 * heroku
 * AWS s3
 * BASIC認証
+
 
 
 ## 機能一覧
