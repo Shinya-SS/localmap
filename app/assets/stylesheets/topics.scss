@@ -15,6 +15,12 @@
   }
 }
 
+// バリデーションチェックエラー
+.topic-err {
+  color: red;
+  font-weight: bold; 
+}
+
 //ナビゲーションバーのためのpadding
 .topic-new-wrapper {
   padding-top: 120px;

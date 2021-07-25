@@ -16,12 +16,16 @@ $(function(){
         if ($("#topic_title").val() == ""){
             $("#topic_title").css("border","1px solid red")
             alert("タイトルを入力してください。");
+            $("#topic-title-err").show();
+            $("#topic-title-err").text("タイトルを入力してください。");
             input_chk = "false";
         }else {input_chk = "true";}
 
         if ($("#stasion_name").val() == ""){
             $("#stasion_name").css("border","1px solid red")
             alert("最寄駅を入力してください。");
+            $("#topic-station-err").show();
+            $("#topic-station-err").text("最寄駅を入力してください。");
             input_chk = "false";
         }else {input_chk = "true";}
     if (input_chk == "false"){return false;}

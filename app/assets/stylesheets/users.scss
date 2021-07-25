@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .users-new-wrapper {
     width: 100vw;
-    height: 100vh;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -11,11 +10,11 @@
     background-color: white;
 
     .users-new-container {
-    padding-top: 100px;
+        padding-top: 100px;
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
     }
 }
 .tip {

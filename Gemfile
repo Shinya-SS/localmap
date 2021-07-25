@@ -46,6 +46,8 @@ gem 'gon' #controller内の変数をJavaScriptで使用可
 
 gem 'font-awesome-sass' #様々なイアコンを使用可能
 
+gem 'rails-i18n' #Railsの日本語化
+
 gem 'jquery-rails'
 gem "jquery-ui-rails"
 gem 'bcrypt'
