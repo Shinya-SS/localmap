@@ -54,6 +54,7 @@ GoogleMap を使用し、地図にピンを挿入しているため、視覚的�
 * AWS
 * Nginx
 * Unicorn
+* AWS s3
 
 ### 本番環境②
 * heroku
