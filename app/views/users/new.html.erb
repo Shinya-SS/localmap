@@ -18,7 +18,7 @@
               <% if @user.errors.include?(:password) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:password).first %>
               <% end %>
-            <p class="tip">パスワードは8~32文字/英数半角文字のみ</p>
+            <p class="tip">パスワードは8~32文字/英数半角文字の混在のみ</p>
           </div>
           <div class="form-group">
             <%= f.label :title,"パスワード(確認用)", class: 'text-white' %>
@@ -26,7 +26,7 @@
               <% if @user.errors.include?(:password_confirmation) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:password_confirmation).first %>
               <% end %>
-            <p class="tip">パスワードは8~32文字/英数半角文字のみ</p>
+            <p class="tip">パスワードは8~32文字/英数半角文字の混在のみ</p>
           </div>
           <div class="form-group">
             <%= f.label :ニックネーム, class: 'text-white' %>
