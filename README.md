@@ -14,7 +14,7 @@
 
 ## URL
   - AWS環境  
-  **http://52.198.131.85/**
+  **https://localmap.work/**
 
   - heroku環境  
   ~~**https://local-mappings.herokuapp.com/**~~
@@ -55,6 +55,7 @@ GoogleMap を使用し、地図にピンを挿入しているため、視覚的�
 * Nginx
 * Unicorn
 * AWS s3
+* SSLサーバ証明書発行
 
 ### 本番環境②
 * heroku
