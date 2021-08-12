@@ -64,7 +64,7 @@
                                 <i class="fas fa-images"></i>
                             </div>
                         <% else %>
-                            <%= image_tag new_topic.picture_1.url, class: "img-fluid new-topic-picture" %>
+                            <%= image_tag new_topic.picture_1.url, class: "new-topic-picture" %>
                         <% end %>
                         <div class="card-body">
                             <div class="small text-muted"><strong>投稿日：</strong><%= new_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>

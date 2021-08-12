@@ -191,8 +191,9 @@
     /*スマホの場合*/
     @media only screen and (max-device-width: 480px) {
         .new-topic-picture{
-            width: auto;
+            display: block;
             height: auto;
+            max-width: 100%;
         }
     }
 
