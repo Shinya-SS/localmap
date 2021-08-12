@@ -63,9 +63,14 @@ h2 {
     z-index: 10000;
   }
   
-  .navbar-transparent {
+  .navbar-custom {
     margin-bottom: 0px;
+    /*PCの場合*/
     background-color: rgba(0,0,0,0.5);
+    /*スマホの場合*/
+    @media only screen and (max-device-width: 480px) {
+      background-color: #666666;
+    }
     a {
       color: #fff !important;
     }

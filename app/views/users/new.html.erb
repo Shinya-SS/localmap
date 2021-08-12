@@ -5,7 +5,7 @@
         <h1 class="text-center text-white">ユーザ登録</h1>
         <%= form_for @user do |f| %>
           <div class="form-group" id="userid_form">
-            <%= f.label :ユーザID,"ユーザID", class: 'text-white' %>
+            <%= f.label :ユーザID,"ユーザID", class: 'text-white required-form' %>
             <%= f.text_field :userid, class: 'form-control' %>
               <% if @user.errors.include?(:userid) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:userid).first %>
@@ -13,7 +13,7 @@
             <p class="tip">ユーザIDは10文字以内/英数半角文字のみ</p>
           </div>
           <div class="form-group">
-            <%= f.label :パスワード, class: 'text-white' %>
+            <%= f.label :パスワード, class: 'text-white required-form' %>
             <%= f.password_field :password, class: 'form-control' %>
               <% if @user.errors.include?(:password) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:password).first %>
@@ -21,7 +21,7 @@
             <p class="tip">パスワードは8~32文字/英数半角文字の混在のみ</p>
           </div>
           <div class="form-group">
-            <%= f.label :title,"パスワード(確認用)", class: 'text-white' %>
+            <%= f.label :title,"パスワード(確認用)", class: 'text-white required-form' %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
               <% if @user.errors.include?(:password_confirmation) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:password_confirmation).first %>
@@ -29,7 +29,7 @@
             <p class="tip">パスワードは8~32文字/英数半角文字の混在のみ</p>
           </div>
           <div class="form-group">
-            <%= f.label :ニックネーム, class: 'text-white' %>
+            <%= f.label :ニックネーム, class: 'text-white required-form' %>
             <%= f.text_field :name, class: 'form-control' %>
               <% if @user.errors.include?(:name) %>
                 <p style="color: red;"><%= @user.errors.full_messages_for(:name).first %>
@@ -44,7 +44,7 @@
               <% end %>
           </div>
           <div class="form-group">
-            <%= f.label :最寄駅, class: 'text-white'%>
+            <%= f.label :最寄駅, class: 'text-white required-form' %>
             <%= f.text_field :station, class: 'form-control' ,id: 'stasion_name' %>
           </div>
           <%= f.submit "登録", class: 'btn-block btn-white' %>

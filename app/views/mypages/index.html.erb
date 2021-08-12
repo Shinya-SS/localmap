@@ -14,7 +14,7 @@
 <div class="container mypage-container">
     <div class="row">
         <!-- マイページ（メイン部分）-->
-        <div class="col-lg-8">
+        <div class="col-lg-8 col-xs-12">
             <!-- いいね順のランキング-->
             <div class="card mb-4">
                 <div class="card-body">
@@ -57,7 +57,7 @@
             <!-- Topicsを取得してLOOPさせる。 -->
             <div class="row">
             <% @new_topics.each do |new_topic| %>
-                <% if @new_cnt.even? %><div class="col-lg-6"><% end %>
+                <div class="col-lg-6 col-xs-12">
                     <div class="card mb-4">
                         <% if new_topic.picture_1.url.nil? %>
                             <div class="new_img_field">
@@ -73,14 +73,13 @@
                             <a class="btn btn-primary" href="/topics/<%= new_topic.id %>">投稿へ →</a>
                         </div>
                     </div>
-                <% if @new_cnt.odd? %></div><% end %>
-                <% @new_cnt += 1 %>
+                </div>
             <% end %>
             </div>
         </div>
         <!-- 左部分のコンテナ(Myスポット、投稿一覧(簡易的)、MyPage(未実装)）) -->
         <% if logged_in? %>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-xs-12">
                 <!-- Myスポット -->
                 <div class="card mb-4">
                     <div class="card-header">

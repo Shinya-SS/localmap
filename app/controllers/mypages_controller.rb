@@ -20,22 +20,16 @@ class MypagesController < ApplicationController
 
     # 前投稿で作成日が最新のもの上位４件
     @new_topics = Topic.all.order(created_at: :desc).limit(4)
-    # オススメ投稿の２トピックごとに"col-lg-6"クラスを入れるカウント
-    @new_cnt = 0
 
     @env = get_apikey
   end
 
   def myspot
     @favorite_topics = current_user.favorite_topics.order(updated_at: :desc)
-    # ２トピックごとに"col-lg-6"クラスを入れるカウント
-    @topic_cnt = 0
   end
 
   def mypost
     @mytopics = current_user.topics.order(updated_at: :desc)
-    # ２トピックごとに"col-lg-6"クラスを入れるカウント
-    @topic_cnt = 0
   end
 
   # def test_update
