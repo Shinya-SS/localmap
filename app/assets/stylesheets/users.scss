@@ -7,7 +7,6 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-color: white;
 
     .users-new-container {
         padding-top: 100px;
@@ -15,6 +14,13 @@
         .form-group {
             margin-bottom: 15px;
         }
+    }
+    .required-form:after{
+        content: "必須";
+        color: red;
+        border: solid 1px red;
+        margin-left: 10px;
+        font-size: small;
     }
 }
 .tip {
@@ -25,18 +31,14 @@
     background-color:#666;
     color:#fff;
     position:absolute;
-    right:-160px;
+    left:-160px;
 }
 .tip:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	border-color: rgba(102, 102, 102, 0);
-	border-right-color: #5e5e5e;
-	border-width: 8px;
-	margin-top: -8px;
-}
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -15px;
+    border: 15px solid transparent;
+    border-left: 15px solid #666;
+  }
