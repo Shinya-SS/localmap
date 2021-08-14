@@ -1,0 +1,102 @@
+<div class="userpage-wrapper" >
+    <div class="container mypage-container userpage-container">
+        <div class="row">
+            <!-- ユーザ情報 -->
+            <div class="col-lg-4 col-xs-12">
+                <div class="card-inclusion mb-4">
+                    <h1 class="user-name"><%= @user.name %>さん</h1>
+                    <hr>
+                    <% if @user.icon.url.nil? %>
+                        <div class="new_img_field">
+                            <i class="far fa-user"></i>
+                        </div>
+                    <% else %>
+                        <%= image_tag @user.icon.url, class: "new-topic-picture" %>
+                    <% end %>
+                    <div class="card-body">
+                        <h3>自己紹介</h2>
+                            <p><%= @user.introduction %></p>
+                        <h3>最寄駅</h3>
+                            <p><%= @user.station %></p>
+                    </div>
+                    <!-- 自分のアカウントページなら編集可能 -->
+                    <% if @user == current_user %>
+                        <hr>
+                        <div class="intro-link">
+                            <%= link_to '#' do %>
+                                <div><i class="far fa-address-card"></i>プロフィールを編集する</div>
+                            <% end %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+            <!-- ユーザ投稿表示部分-->
+            <div class="col-lg-8 col-xs-12">
+                <!-- 対象ユーザ投稿一覧 -->
+                <div class="card-inclusion mb-4">
+                    <div class="text-center title-grid">
+                        <h2 calss="fw-bolder title-left"><%= @user.name %>さんの最新投稿 </h2>
+                        <%= link_to userpages_mypost_path(id: @user.id) do %>
+                            <button type="button" class="btn btn-success title-right">一覧へ</button>
+                        <% end %>
+                    </div>
+                    <!-- Topicsを取得してLOOPさせる。 -->
+                    <div class="row">
+                    <% @my_topics.each do |my_topic| %>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="card mb-4">
+                            <% if my_topic.picture_1.url.nil? %>
+                                <div class="new_img_field">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                            <% else %>
+                                <%= image_tag my_topic.picture_1.url, class: "new-topic-picture" %>
+                            <% end %>
+                                <div class="card-body">
+                                    <div class="small text-muted"><strong>投稿者：</strong><%= my_topic.user.name %></div>
+                                    <div class="small text-muted"><strong>投稿日：</strong><%= my_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                    <h2 class="card-title h4"><%= my_topic.title %></h2>
+                                    <p class="card-text"><%= my_topic.description %></p>
+                                    <a class="btn btn-primary" href="/topics/<%= my_topic.id %>">投稿へ →</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                    </div>
+                </div>
+                <!-- 対象ユーザいいね一覧 -->
+                <div class="card-inclusion mb-4">
+                    <div class="text-center title-grid">
+                        <h2 calss="fw-bolder title-left"><%= @user.name %>さんのMyスポット</h2>
+                        <%= link_to userpages_myspot_path(id: @user.id) do %>
+                            <button type="button" class="btn btn-success title-right">一覧へ</button>
+                        <% end %>
+                    </div>
+                    <!-- Topicsを取得してLOOPさせる。 -->
+                    <div class="row">
+                    <% @my_fav_topics.each do |my_fav_topic| %>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="card mb-4">
+                            <% if my_fav_topic.picture_1.url.nil? %>
+                                <div class="new_img_field">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                            <% else %>
+                                <%= image_tag my_fav_topic.picture_1.url, class: "new-topic-picture" %>
+                            <% end %>
+                                <div class="card-body">
+                                    <div class="small text-muted"><strong>投稿者：</strong><%= my_fav_topic.user.name %></div>
+                                    <div class="small text-muted"><strong>投稿日：</strong><%= my_fav_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+                                    <h2 class="card-title h4"><%= my_fav_topic.title %></h2>
+                                    <p class="card-text"><%= my_fav_topic.description %></p>
+                                    <a class="btn btn-primary" href="/topics/<%= my_fav_topic.id %>">投稿へ →</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

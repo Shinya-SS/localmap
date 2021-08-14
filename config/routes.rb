@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'userpages/index'
   get 'mypages/index'
   get 'sessions/new'
 
@@ -30,6 +31,10 @@ Rails.application.routes.draw do
 
   get 'mypages/myspot'
   get 'mypages/mypost'
+
+  get 'userpages/index'
+  get 'userpages/myspot'
+  get 'userpages/mypost'
 
   # get 'mypages/test_update'
 

@@ -1,0 +1,10 @@
+<header class="mypage-wrapper">
+    <div class="container">
+        <!-- アカウントページから移動してきたユーザの投稿一覧　-->
+        <div class="text-center">
+            <h2 calss="fw-bolder"><%= @user.name %>さん　投稿一覧</h2>
+        </div>
+    </div>
+</header>
+
+<%= render 'mypages/spot', mytopics: @mytopics %>

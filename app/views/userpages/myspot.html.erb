@@ -1,0 +1,10 @@
+<header class="mypage-wrapper">
+    <div class="container">
+        <!-- Myスポット（アカウントページから移動してきたユーザのお気に入り一覧）　-->
+        <div class="text-center">
+            <h2 calss="fw-bolder"><%= @user.name %>さん　Myスポット一覧</h2>
+        </div>
+    </div>
+</header>
+
+<%= render 'mypages/spot', mytopics: @favorite_topics %>
