@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
     #メールアドレス：「~ @ ~ . ~」の形式のみ許可・未入力許可
     valid_email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-    validates :email, format: {with: valid_email_regex, message: "は「xxx@xxx.xxx」の形式で入力ください。"}
+    validates :email, format: {with: valid_email_regex, message: "は「xxx@xxx.xxx」の形式で入力ください。"}, allow_blank: true
 
     #パスワード：８~３２文字・アルファベット/数字の混合のみ許可
     valid_password_regex = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
