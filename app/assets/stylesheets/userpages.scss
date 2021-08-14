@@ -37,6 +37,29 @@
         border-radius: 0.25rem;
     }
 
+    .user-icon {
+        width: auto;
+        height: 300px;
+        padding: 5px 8px;
+        text-align: center;
+        position: relative;
+        padding: 0;
+        border-radius: 5px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #f5fffa;
+        box-sizing: border-box;
+        transition: 0.3s ease-out;
+
+        i {
+            font-size: 200px;
+            color: #aaa;
+            line-height: 300px;
+            transition: 0.3s ease-out;
+        }
+    }
+
     .title-grid{
         display: grid;
         grid-template-columns: 1fr 80px;

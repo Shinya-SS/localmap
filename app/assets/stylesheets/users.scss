@@ -14,6 +14,20 @@
         .form-group {
             margin-bottom: 15px;
         }
+
+        .intro-form{
+            height: 200px;
+        }
+
+        #user-icon{
+            display: none;
+        }
+        
+        .no-user-icon{
+            i {
+                font-size: 100px;
+            }
+        }
     }
     .required-form:after{
         content: "必須";

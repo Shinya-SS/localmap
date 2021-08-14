@@ -47,6 +47,21 @@
             <%= f.label :最寄駅, class: 'text-white required-form' %>
             <%= f.text_field :station, class: 'form-control' ,id: 'stasion_name' %>
           </div>
+          <div class="form-group">
+            <%= f.label :アイコン, class: 'text-white' %>
+            <%= f.file_field :icon, id: 'user-icon' %>
+            <div class="img_field" id="img_field1", onClick="$('#user-icon').click()">
+              <% if @user.icon.present? %>
+                <%= image_tag(@user.icon.url, id: 'img_1') %>
+              <% else %>
+                <div class="no-user-icon"><i class="fas fa-user"></i></div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :自己紹介, class: 'text-white' %>
+            <%= f.text_area :introduction, class: 'form-control intro-form' %>
+          </div>
           <%= f.submit "登録", class: 'btn-block btn-white' %>
         <% end %>
         <%= link_to 'ログインはこちら', login_path,class: 'text-white' %>
@@ -81,4 +96,30 @@
       }
     }
   });
+
+//アイコン画像プレビュー
+$(function(){
+    $fileField = $('#user-icon')
+
+    $($fileField).on('change', $fileField, function(e) {
+        file = e.target.files[0]
+        reader = new FileReader(),
+        $preview = $('#img_field1');
+
+        reader.onload = (function(file) {
+            return function(e) {
+                $preview.empty();
+                $preview.append($('<img>').attr({
+                    src: e.target.result,
+                    width: "100%",
+                    height: "100%",
+                    class: "preview",
+                    id: "preview1",
+                    title: file.name
+                }));
+            };
+        })(file);
+        reader.readAsDataURL(file);
+    });
+});
   </script>
