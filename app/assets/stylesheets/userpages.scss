@@ -1,0 +1,78 @@
+// Place all the styles related to the userpages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.userpage-wrapper{
+    padding-top: 120px;
+}
+
+.userpage-container{
+    .user-name{
+        text-align: center;
+    }
+
+    hr{
+        margin-top: 1px;
+        margin-bottom: 1px;
+        width: 90%;
+        border-top: 2px solid gray;
+    }
+
+    .intro-link{
+        margin-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 50px;
+    }
+
+    .card-inclusion  {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #f5fffa;
+        background-clip: border-box;
+        border: 2px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+
+    .user-icon {
+        width: auto;
+        height: 300px;
+        padding: 5px 8px;
+        text-align: center;
+        position: relative;
+        padding: 0;
+        border-radius: 5px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #f5fffa;
+        box-sizing: border-box;
+        transition: 0.3s ease-out;
+
+        i {
+            font-size: 200px;
+            color: #aaa;
+            line-height: 300px;
+            transition: 0.3s ease-out;
+        }
+    }
+
+    .title-grid{
+        display: grid;
+        grid-template-columns: 1fr 80px;
+
+        .title-left{
+            grid-column: 1/2;
+        }
+
+        .title-right{
+            grid-column: 2/3;
+            width: 68px;
+            height: 34px;
+            margin-top: 15px;
+        }
+    }
+}

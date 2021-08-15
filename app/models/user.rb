@@ -9,12 +9,12 @@ class User < ApplicationRecord
 
     #メールアドレス：「~ @ ~ . ~」の形式のみ許可・未入力許可
     valid_email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-    validates :email, format: {with: valid_email_regex, message: "は「xxx@xxx.xxx」の形式で入力ください。"}
+    validates :email, format: {with: valid_email_regex, message: "は「xxx@xxx.xxx」の形式で入力ください。"}, allow_blank: true
 
     #パスワード：８~３２文字・アルファベット/数字の混合のみ許可
     valid_password_regex = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
-    validates :password, length: {in: 8..32}, confirmation: true, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"} 
-    validates :password_confirmation, length: {in: 8..32}, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"} 
+    validates :password, length: {in: 8..32}, confirmation: true, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"}, on: :create 
+    validates :password_confirmation, length: {in: 8..32}, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"}, on: :create
 
     has_secure_password
 
@@ -22,4 +22,6 @@ class User < ApplicationRecord
     has_many :favorites
     has_many :comments
     has_many :favorite_topics, through: :favorites, source: 'topic'
+
+    mount_uploader :icon, ImageUploader
 end

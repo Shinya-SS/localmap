@@ -67,6 +67,7 @@
                             <%= image_tag new_topic.picture_1.url, class: "new-topic-picture" %>
                         <% end %>
                         <div class="card-body">
+                            <div class="small text-muted"><strong>投稿者：</strong><%= new_topic.user.name %></div>
                             <div class="small text-muted"><strong>投稿日：</strong><%= new_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
                             <h2 class="card-title h4"><%= new_topic.title %></h2>
                             <p class="card-text"><%= new_topic.description %></p>
