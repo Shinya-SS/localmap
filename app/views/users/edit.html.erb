@@ -1,4 +1,4 @@
-<div class="users-new-wrapper">
+<div class="users-new-wrapper edit-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-offset-4 col-md-4 col-xs-offset-1 col-xs-10 col-xs-offset-1 users-new-container">
@@ -38,7 +38,8 @@
                         <%= user.label :自己紹介, class: 'text-white' %>
                         <%= user.text_area :introduction, class: 'form-control intro-form' %>
                     </div>
-                    <%= user.submit "登録", class: 'btn-block btn-white' %>
+                    <%= user.hidden_field :id %>
+                    <%= user.submit "編集", class: 'btn-block btn-white' %>
                 <% end %>
             </div>
         </div>
@@ -48,13 +49,53 @@
 <script>
 
 $(function(){
-        $('.tip').hide();
+
+    $( "#stasion_name" ).autocomplete({
+        autoFocus: true,
+        source: "/users/users/auto_complete.json",
+        minLength: 1,
+    });
+
+    $('.tip').hide();
     $('.form-group').hover(
     function () {
         $(this).children('.tip').fadeIn('fast');
     },
     function () {
         $(this).children('.tip').fadeOut('fast');
+    });
+
+    //入力値に"駅"が含まれなければ追加する。
+    userid = 'edit_user_' + document.getElementById('user_id').value
+    document.getElementById(userid).onsubmit = function() {
+    let inputAddress = document.getElementById('stasion_name').value;
+    if (inputAddress.indexOf('駅') == -1) {
+        inputAddress = inputAddress + '駅';
+        document.getElementById('stasion_name').value = inputAddress;
+        }
+    }
+
+    //アイコン画像プレビュー
+    $fileField = $('#user-icon')
+    $($fileField).on('change', $fileField, function(e) {
+        file = e.target.files[0]
+        reader = new FileReader(),
+        $preview = $('#img_field1');
+
+        reader.onload = (function(file) {
+            return function(e) {
+                $preview.empty();
+                $preview.append($('<img>').attr({
+                    src: e.target.result,
+                    width: "100%",
+                    height: "100%",
+                    class: "preview",
+                    id: "preview1",
+                    title: file.name
+                }));
+            };
+        })(file);
+        reader.readAsDataURL(file);
     });
 });
 
