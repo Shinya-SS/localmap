@@ -36,7 +36,7 @@
                 <div class="card-inclusion mb-4">
                     <div class="text-center title-grid">
                         <h2 calss="fw-bolder title-left"><%= @user.name %>さんの最新投稿 </h2>
-                        <%= link_to userpages_mypost_path(id: @user.id) do %>
+                        <%= link_to userpage_mypost_path(userpage_id: @user.id) do %>
                             <button type="button" class="btn btn-success title-right">一覧へ</button>
                         <% end %>
                     </div>
@@ -68,7 +68,7 @@
                 <div class="card-inclusion mb-4">
                     <div class="text-center title-grid">
                         <h2 calss="fw-bolder title-left"><%= @user.name %>さんのMyスポット</h2>
-                        <%= link_to userpages_myspot_path(id: @user.id) do %>
+                        <%= link_to userpage_myspot_path(userpage_id: @user.id) do %>
                             <button type="button" class="btn btn-success title-right">一覧へ</button>
                         <% end %>
                     </div>

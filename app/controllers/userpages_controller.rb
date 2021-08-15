@@ -14,7 +14,7 @@ class UserpagesController < ApplicationController
     # Myスポット一覧
     def myspot
         # リンクされてきたユーザIDを引数として受け取る
-        user_id = params[:id]
+        user_id = params[:userpage_id]
         @user = User.find(user_id)
 
         @favorite_topics = @user.favorite_topics.order(updated_at: :desc)
@@ -23,9 +23,14 @@ class UserpagesController < ApplicationController
     #投稿一覧
     def mypost
         # リンクされてきたユーザIDを引数として受け取る
-        user_id = params[:id]
+        user_id = params[:userpage_id]
         @user = User.find(user_id)
 
         @mytopics = @user.topics.order(updated_at: :desc)
     end
+
+    def edit
+        
+    end
+    
 end

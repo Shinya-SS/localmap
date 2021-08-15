@@ -32,9 +32,14 @@ Rails.application.routes.draw do
   get 'mypages/myspot'
   get 'mypages/mypost'
 
-  get 'userpages/index'
-  get 'userpages/myspot'
-  get 'userpages/mypost'
+  # get 'userpages/index'
+  # get 'userpages/myspot'
+  # get 'userpages/mypost'
+  # get 'userpages/edit'
+  resources :userpages do
+    get 'myspot'
+    get 'mypost'
+  end
 
   # get 'mypages/test_update'
 
