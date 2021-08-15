@@ -13,8 +13,8 @@ class User < ApplicationRecord
 
     #パスワード：８~３２文字・アルファベット/数字の混合のみ許可
     valid_password_regex = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
-    validates :password, length: {in: 8..32}, confirmation: true, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"} 
-    validates :password_confirmation, length: {in: 8..32}, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"} 
+    validates :password, length: {in: 8..32}, confirmation: true, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"}, on: :create 
+    validates :password_confirmation, length: {in: 8..32}, format: {with: valid_password_regex, message: "は英数半角字の混在で入力ください。"}, on: :create
 
     has_secure_password
 

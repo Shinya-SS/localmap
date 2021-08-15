@@ -1,4 +1,5 @@
 class UserpagesController < ApplicationController
+
     def index
         # リンクされてきたユーザIDを引数として受け取る
         user_id = params[:id]
@@ -28,9 +29,4 @@ class UserpagesController < ApplicationController
 
         @mytopics = @user.topics.order(updated_at: :desc)
     end
-
-    def edit
-        
-    end
-    
 end

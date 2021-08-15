@@ -1,0 +1,61 @@
+<div class="users-new-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4 col-xs-offset-1 col-xs-10 col-xs-offset-1 users-new-container">
+            <h1 class="text-center text-white">ユーザ情報編集</h1>
+                <%= form_for(@user, url:{controller: 'users', action: 'update',id: @user.id}) do |user| %>
+                    <div class="form-group">
+                        <%= user.label :ニックネーム, class: 'text-white required-form' %>
+                        <%= user.text_field :name, class: 'form-control' %>
+                        <% if @user.errors.include?(:name) %>
+                            <p style="color: red;"><%= @user.errors.full_messages_for(:name).first %>
+                        <% end %>
+                        <p class="tip">ニックネームは15文字以内</p>
+                    </div>
+                    <div class="form-group">
+                        <%= user.label :メールアドレス, class: 'text-white' %>
+                        <%= user.text_field :email, class: 'form-control' %>
+                        <% if @user.errors.include?(:email) %>
+                            <p style="color: red;"><%= @user.errors.full_messages_for(:email).first %>
+                        <% end %>
+                    </div>
+                    <div class="form-group">
+                        <%= user.label :最寄駅, class: 'text-white required-form' %>
+                        <%= user.text_field :station, class: 'form-control' ,id: 'stasion_name' %>
+                    </div>
+                    <div class="form-group">
+                        <%= user.label :アイコン, class: 'text-white' %>
+                        <%= user.file_field :icon, id: 'user-icon' %>
+                        <div class="img_field" id="img_field1", onClick="$('#user-icon').click()">
+                        <% if @user.icon.present? %>
+                            <%= image_tag(@user.icon.url, id: 'img_1') %>
+                        <% else %>
+                            <div class="no-user-icon"><i class="fas fa-user"></i></div>
+                        <% end %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= user.label :自己紹介, class: 'text-white' %>
+                        <%= user.text_area :introduction, class: 'form-control intro-form' %>
+                    </div>
+                    <%= user.submit "登録", class: 'btn-block btn-white' %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+$(function(){
+        $('.tip').hide();
+    $('.form-group').hover(
+    function () {
+        $(this).children('.tip').fadeIn('fast');
+    },
+    function () {
+        $(this).children('.tip').fadeOut('fast');
+    });
+});
+
+</script>
