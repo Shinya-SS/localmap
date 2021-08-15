@@ -7,6 +7,8 @@ class UserpagesController < ApplicationController
 
         # ユーザページの投稿したもの上位４件
         @my_topics = @user.topics.order(updated_at: :desc).limit(4)
+        # ユーザの投稿数
+        @topic_cnt = @user.topics.count
 
         # ユーザページのいいねしたもの上位４件
         @my_fav_topics = @user.favorite_topics.order(updated_at: :desc).limit(4)

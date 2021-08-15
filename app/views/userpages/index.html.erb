@@ -18,6 +18,8 @@
                             <p><%= @user.introduction %></p>
                         <h3>最寄駅</h3>
                             <p><%= @user.station %></p>
+                        <h3><%= @user.name %>さんの投稿数</h3>
+                            <p><%= @topic_cnt %>件 投稿</p>
                     </div>
                     <!-- 自分のアカウントページなら編集可能 -->
                     <% if @user == current_user %>
